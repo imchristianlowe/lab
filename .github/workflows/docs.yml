@@ -17,3 +17,5 @@ jobs:
           poetry-version: 1.8.3
       - name: View poetry --help
         run: poetry --help
+      - name: View poetry --help
+        run: poetry install
