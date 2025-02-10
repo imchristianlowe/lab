@@ -17,5 +17,7 @@ jobs:
           poetry-version: 1.8.3
       - name: View poetry --help
         run: poetry --help
-      - name: View poetry --help
+      - name: Install Dependencies
         run: poetry install
+      - name: Build Docs
+        run: mkdocs build
