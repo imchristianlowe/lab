@@ -1,0 +1,7 @@
+site_name: Christian Lowe App
+
+nav:
+  - Home: index.md
+  - About: about.md
+
+theme: readthedocs
