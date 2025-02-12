@@ -1,18 +1,12 @@
 # Welcome to My Mobile App Site
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
-
-## Commands
-
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
-
+For more information about me and other projects visit [christianlowe.com](https://www.christianlowe.com).
 
 ## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+    .github/       # Github configuration, workflows, etc
+    docs/          # Docs folder
+    backend/       # Backend Services Folder
+    frontend/      # Frontend Folder
+    mkdocs.yml     # Documentation configuration
+    poetry.lock    # Dependency Lock File
+    pyproject.toml # Dependency file and configurations
