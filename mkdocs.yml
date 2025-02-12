@@ -2,7 +2,6 @@ site_name: Christian Lowe App
 
 nav:
   - Home: README.md
-  - About: about/README.md
   - Development:
       - Backend: backend-development/README.md
 
