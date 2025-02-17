@@ -4,5 +4,6 @@ nav:
   - Home: README.md
   - Development:
       - Backend: backend-development/README.md
+      - Frontend: frontend-development/README.md
 
 theme: readthedocs
