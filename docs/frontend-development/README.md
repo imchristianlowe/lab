@@ -8,7 +8,7 @@ The frontend is made with [Expo](https://expo.dev)
 
 ## Running Locally
 
-`cd my-app`
+`cd frontend`
 
 ```aiignore
 npm run ios
