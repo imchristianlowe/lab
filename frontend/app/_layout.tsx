@@ -10,8 +10,7 @@ import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { SessionProvider } from "@/ctx";
-import { Slot, Stack } from "expo-router";
-import { StatusBar } from "react-native";
+import { Slot } from "expo-router";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
