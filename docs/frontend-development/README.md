@@ -2,9 +2,8 @@
 
 The frontend is made with [Expo](https://expo.dev)
 
-* brew upgrade nodenv
-* nodenv install
-
+- brew upgrade nodenv
+- nodenv install
 
 ## Running Locally
 
@@ -15,4 +14,3 @@ npm run ios
 npm run web
 npm run android
 ```
-
