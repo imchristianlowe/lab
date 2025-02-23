@@ -14,7 +14,8 @@
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       },
-      "usesAppleSignIn": true
+      "usesAppleSignIn": true,
+      "usesNonExemptEncryption": false
     },
     "android": {
       "adaptiveIcon": {
@@ -38,7 +39,8 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-apple-authentication"
+      "expo-apple-authentication",
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true

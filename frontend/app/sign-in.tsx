@@ -1,9 +1,13 @@
-import * as AppleAuthentication from 'expo-apple-authentication';
-import { View, StyleSheet } from 'react-native';
+import { router } from "expo-router";
+import { StyleSheet, Text, View } from "react-native";
 
-export default function App() {
+import { useSession } from "../ctx";
+import * as AppleAuthentication from "expo-apple-authentication";
+
+export default function SignIn() {
+  const { signIn } = useSession();
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <AppleAuthentication.AppleAuthenticationButton
         buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
         buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
@@ -17,10 +21,11 @@ export default function App() {
                 AppleAuthentication.AppleAuthenticationScope.EMAIL,
               ],
             });
-            console.log(credential)
+            signIn(JSON.stringify(credential));
+            router.replace("/");
             // signed in
           } catch (e: any) {
-            if (e.code === 'ERR_REQUEST_CANCELED') {
+            if (e.code === "ERR_REQUEST_CANCELED") {
               // handle that the user canceled the sign-in flow
             } else {
               // handle other errors
@@ -35,8 +40,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   button: {
     width: 200,
