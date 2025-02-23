@@ -19,7 +19,7 @@ export default function App() {
             });
             console.log(credential)
             // signed in
-          } catch (e) {
+          } catch (e: any) {
             if (e.code === 'ERR_REQUEST_CANCELED') {
               // handle that the user canceled the sign-in flow
             } else {
