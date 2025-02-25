@@ -19,7 +19,7 @@ User = get_user_model()
 
 
 @dataclass
-class AppleIdTokenInfo:
+class AppleIdToken:
     iss: str
     sub: str
     aud: str
@@ -54,7 +54,7 @@ class AppleIdTokenAuthentication(authentication.BaseAuthentication):
 
         verified_decoded = jwt.decode(id_token, apple_public_key, audience=settings.APPLE_APP_AUDIENCE, algorithms=[key["alg"]])
 
-        apple_id_token = AppleIdTokenInfo(**verified_decoded)
+        apple_id_token = AppleIdToken(**verified_decoded)
 
         try:
             user = User.objects.get(username=apple_id_token.sub)
