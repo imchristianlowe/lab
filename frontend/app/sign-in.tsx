@@ -22,6 +22,7 @@ export default function SignIn() {
               ],
             });
             signIn(JSON.stringify(credential));
+            console.log(credential);
             router.replace("/");
             // signed in
           } catch (e: any) {
