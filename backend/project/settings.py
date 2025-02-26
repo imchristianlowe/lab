@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'drf_logging.middleware.RequestLogMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -171,6 +172,11 @@ LOGGING = {
             "handlers": ["null"],
         },
         "apple_users": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+        "drf_logging": {
             "handlers": ["console"],
             "level": "DEBUG",
             "propagate": False,
