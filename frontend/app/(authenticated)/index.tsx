@@ -17,7 +17,9 @@ export default function Index() {
     );
 
     if (response.data) {
-      setMessage(response.data.message);
+      setMessage(
+        `${response.data.message} you are user ${response.data.user_id}`,
+      );
     }
   }
 
