@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 import requests
 
@@ -142,3 +142,38 @@ apple_public_keys_response = requests.get(APPLE_JWT_URL)
 apple_public_keys_response.raise_for_status()
 
 APPLE_PUBLIC_KEYS = {key_info["kid"]: key_info for key_info in apple_public_keys_response.json()["keys"]}
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "json": {
+            "class": "pythonjsonlogger.json.JsonFormatter",
+            "format": "{levelname} {asctime} {name} {filename} {message} ",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "json",
+        },
+        "null": {
+            "class": "logging.NullHandler",
+        }
+    },
+    "root": {
+        "handlers": ["null"],
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["null"],
+        },
+        "apple_users": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+    },
+}
