@@ -57,7 +57,8 @@ class AppleIdTokenAuthentication(authentication.BaseAuthentication):
         apple_id_token = AppleIdToken(**verified_decoded)
 
         try:
-            user = User.objects.get(username=apple_id_token.sub)
+            apple_user_info = AppleUserInfo.objects.get(sub=apple_id_token.sub)
+            user = apple_user_info.user
         except User.DoesNotExist:
             logger.debug(f"Did not find user with Apple sub as {apple_id_token.sub}. Creating")
 
