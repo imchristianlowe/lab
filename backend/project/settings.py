@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import requests
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'accounts'
+    'apple_users'
 ]
 
 MIDDLEWARE = [
@@ -132,3 +134,11 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+APPLE_JWT_URL = "https://appleid.apple.com/auth/keys"
+APPLE_APP_AUDIENCE = "com.christianlowe.app"
+
+apple_public_keys_response = requests.get(APPLE_JWT_URL)
+apple_public_keys_response.raise_for_status()
+
+APPLE_PUBLIC_KEYS = {key_info["kid"]: key_info for key_info in apple_public_keys_response.json()["keys"]}
