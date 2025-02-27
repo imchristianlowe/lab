@@ -7,3 +7,16 @@ services:
     command: python manage.py runserver 0.0.0.0:8000
     ports:
       - "8000:8000"
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: password
+      POSTGRES_DB: clowe-app
+  db:
+    container_name: clowe-app-db
+    image: postgres:17.4-alpine3.21
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: password
+      POSTGRES_DB: clowe-app
