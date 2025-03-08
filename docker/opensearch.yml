@@ -71,3 +71,5 @@ volumes:
 
 networks:
   opensearch-net:
+    name: opensearch-net
+    external: false
