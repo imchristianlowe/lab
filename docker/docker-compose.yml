@@ -22,8 +22,19 @@ services:
       POSTGRES_DB: clowe-app
     volumes:
       - "clowe-app-db-data:/var/lib/postgresql/data"
+  fluentbit:
+    container_name: clowe-fluent-bit
+    image: fluent/fluent-bit
+    volumes:
+      - ./fluentbit-backend.conf:/fluent-bit/etc/fluent-bit.conf
+    networks:
+      - opensearch-net
 
 volumes:
   clowe-app-db-data:
     name: clowe-app-db-data
     external: false
+
+networks:
+  opensearch-net:
+    external: true
