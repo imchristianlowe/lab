@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-cl@!08%olx%05=@&)_@xktr((c4r*eaa6za5n9i0xp$@scdjj3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -40,10 +40,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'apple_users'
+    'apple_users',
+    'django_prometheus',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
+    'drf_logging.middleware.RequestLogMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -51,7 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'drf_logging.middleware.RequestLogMiddleware',
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -186,7 +191,7 @@ LOGGING = {
         }
     },
     "root": {
-        "handlers": ["null"],
+        "handlers": ["simple_console"],
     },
     "loggers": {
         "django": {
@@ -204,3 +209,9 @@ LOGGING = {
         },
     },
 }
+
+
+CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOWED_ORIGINS = [
+#     '*',
+# ]

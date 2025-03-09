@@ -23,5 +23,6 @@ from apple_users import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
+    path('api/', include('django_prometheus.urls')),
     path('validate_apple_id_token/', views.validate_id_token),
 ]

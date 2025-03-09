@@ -17,8 +17,8 @@ scrape_configs:
     static_configs:
       - targets: ["loki:3100"] # Replace with your Loki's address and port
 
-#  # Scrape application metrics
-#  - job_name: "application"
-#    metrics_path: "/api/metrics"  # Your application metrics endpoint
-#    static_configs:
-#      - targets: ["grafana:3000"]  # Replace with your application's address and port
+  # Scrape application metrics
+  - job_name: "application"
+    metrics_path: "/api/metrics" # Your application metrics endpoint
+    static_configs:
+      - targets: ["clowe-app:8000"] # Replace with your application's address and port
