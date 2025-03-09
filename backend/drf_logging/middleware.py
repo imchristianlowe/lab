@@ -2,7 +2,6 @@ import logging
 import socket
 import time
 
-from django.http.response import JsonResponse
 
 logger = logging.getLogger(__name__)
 
