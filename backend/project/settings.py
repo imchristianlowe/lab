@@ -162,14 +162,27 @@ LOGGING = {
             "format": "{levelname} {asctime} {name} {filename} {message} ",
             "style": "{",
         },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        }
     },
     "handlers": {
-        "console": {
+        "json_console": {
             "class": "logging.StreamHandler",
             "formatter": "json",
         },
+        "simple_console": {
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
         "null": {
             "class": "logging.NullHandler",
+        },
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": "/var/log/app/app.log",
+            "formatter": "json",
         }
     },
     "root": {
@@ -180,12 +193,12 @@ LOGGING = {
             "handlers": ["null"],
         },
         "apple_users": {
-            "handlers": ["console"],
+            "handlers": ["json_console"],
             "level": "DEBUG",
             "propagate": False,
         },
         "drf_logging": {
-            "handlers": ["console"],
+            "handlers": ["simple_console", "file"],
             "level": "DEBUG",
             "propagate": False,
         },

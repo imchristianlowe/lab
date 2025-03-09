@@ -1,6 +1,9 @@
 services:
   clowe-app:
     container_name: clowe-app
+    volumes:
+      - "../backend:/usr/src/app"
+      - "./logs/backend:/var/log/app"
     build:
       context: ../
       dockerfile: docker/Dockerfile
