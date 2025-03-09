@@ -203,7 +203,7 @@ LOGGING = {
             "propagate": False,
         },
         "drf_logging": {
-            "handlers": ["simple_console", "file"],
+            "handlers": ["json_console", "file"],
             "level": "DEBUG",
             "propagate": False,
         },
