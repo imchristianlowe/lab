@@ -37,6 +37,7 @@ services:
       - ./logs/backend:/var/log/app
     networks:
       - opensearch-net
+      - grafana-net
 
 volumes:
   clowe-app-db-data:
