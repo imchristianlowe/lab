@@ -39,6 +39,8 @@ class RequestLogMiddleware:
             'http_referer': request.META.get('HTTP_REFERER'),
             'user_agent': request.META['HTTP_USER_AGENT'],
             'remote_host': request.META['REMOTE_HOST'],
+            'x_forwarded_for': request.META.get('HTTP_X_FORWARDED_FOR'),
+            'x_forwarded_proto': request.META.get('HTTP_X_FORWARDED_PROTO'),
         }
 
 
