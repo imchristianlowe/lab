@@ -30,6 +30,7 @@ services:
     image: fluent/fluent-bit
     volumes:
       - ./fluentbit-backend.conf:/fluent-bit/etc/fluent-bit.conf
+      - ./logs/backend:/var/log/app
     networks:
       - opensearch-net
 
