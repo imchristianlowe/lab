@@ -17,6 +17,7 @@ services:
     networks:
       - default
       - grafana-net
+      - clowe-net
   db:
     container_name: clowe-app-db
     image: postgres:17.4-alpine3.21
@@ -49,3 +50,6 @@ networks:
     external: true
   grafana-net:
     external: true
+  clowe-net:
+    name: clowe-net
+    external: false

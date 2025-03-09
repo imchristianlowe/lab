@@ -1,0 +1,14 @@
+services:
+  cloudflare-tunnel:
+    container_name: cloudflared-tunnel
+    image: cloudflare/cloudflared
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    networks:
+      - clowe-net
+
+networks:
+  clowe-net:
+    external: true
