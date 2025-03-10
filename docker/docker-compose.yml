@@ -3,7 +3,7 @@ services:
     container_name: clowe-app
     volumes:
       - "../backend:/usr/src/app"
-      - "./logs/backend:/var/log/app"
+      - "clowe-app-logs:/var/log/app"
     build:
       context: ../
       dockerfile: docker/Dockerfile
@@ -35,7 +35,7 @@ services:
     volumes:
       - ./fluentbit-backend.conf:/fluent-bit/etc/fluent-bit.conf
       - ./fluentbit-parsers.conf:/fluent-bit/etc/custom_parsers.conf
-      - ./logs/backend:/var/log/app
+      - clowe-app-logs:/var/log/app
     networks:
       - opensearch-net
       - grafana-net
@@ -43,6 +43,9 @@ services:
 volumes:
   clowe-app-db-data:
     name: clowe-app-db-data
+    external: false
+  clowe-app-logs:
+    name: clowe-app-logs
     external: false
 
 networks:
