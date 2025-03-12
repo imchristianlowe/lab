@@ -184,11 +184,6 @@ LOGGING = {
         "null": {
             "class": "logging.NullHandler",
         },
-        "file": {
-            "class": "logging.FileHandler",
-            "filename": "/var/log/app/app.log",
-            "formatter": "json",
-        }
     },
     "root": {
         "handlers": ["simple_console"],
@@ -203,7 +198,7 @@ LOGGING = {
             "propagate": False,
         },
         "drf_logging": {
-            "handlers": ["json_console", "file"],
+            "handlers": ["json_console"],
             "level": "DEBUG",
             "propagate": False,
         },
