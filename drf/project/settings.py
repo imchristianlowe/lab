@@ -86,10 +86,10 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         "ENGINE": "django.db.backends.postgresql",
-        'NAME': 'clowe-app',
-        'USER': 'password',
-        'PASSWORD': 'password',
-        'HOST': 'clowe-app-db',
+        'NAME': os.environ.get('POSTGRES_DB'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': os.environ.get('POSTGRES_HOST'),
         'PORT': '5432',
     },
     'sqlite': {
@@ -150,7 +150,7 @@ REST_FRAMEWORK = {
 }
 
 APPLE_JWT_URL = "https://appleid.apple.com/auth/keys"
-APPLE_APP_AUDIENCE = "com.christianlowe.app"
+APPLE_APP_AUDIENCE = os.environ.get("APPLE_APP_AUDIENCE")
 
 apple_public_keys_response = requests.get(APPLE_JWT_URL)
 apple_public_keys_response.raise_for_status()
