@@ -1,0 +1,106 @@
+---
+- name: Install App As Service
+  hosts: clowe-app-webservers
+  become: true
+
+  tasks:
+    - name: Install docker compose packages
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      with_items:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+
+    - name: Add Docker s official GPG key
+      ansible.builtin.shell: |
+        install -m 0755 -d /etc/apt/keyrings
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+        chmod a+r /etc/apt/keyrings/docker.asc
+
+    - name: Setup Stable Repo
+      ansible.builtin.shell: |
+        echo \
+          "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+          $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+          sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+    - name: Install Docker Compose
+      ansible.builtin.apt:
+        update_cache: yes
+        name: "{{ item }}"
+        state: latest
+      with_items:
+        - docker.io
+        - docker-compose-plugin
+
+    - name: Ensure group exists
+      ansible.builtin.group:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - clowe-app
+        - docker
+
+    - name: Add the user 'clowe-app' with a group of clowe-app and docker
+      ansible.builtin.user:
+        name: clowe-app
+        comment: clowe-app user for running docker
+        groups:
+          - clowe-app
+          - docker
+
+    - name: Copy backend files over
+      ansible.builtin.copy:
+        src: ../backend
+        dest: /opt/clowe-app
+        owner: clowe-app
+        group: clowe-app
+        mode: u+rw,g-wx,o-rwx
+
+    - name: Copy docker files over
+      ansible.builtin.copy:
+        src: ../docker
+        dest: /opt/clowe-app
+        owner: clowe-app
+        group: clowe-app
+        mode: u+rwx,g-wx,o-rwx
+
+    - name: Copy poetry.lock files over
+      ansible.builtin.copy:
+        src: ../poetry.lock
+        dest: /opt/clowe-app
+        owner: clowe-app
+        group: clowe-app
+        mode: u+rw,g-wx,o-rwx
+
+    - name: Copy pyproject.toml files over
+      ansible.builtin.copy:
+        src: ../pyproject.toml
+        dest: /opt/clowe-app
+        owner: clowe-app
+        group: clowe-app
+        mode: u+rw,g-wx,o-rwx
+
+    - name: Stop existing services
+      community.docker.docker_compose_v2:
+        project_src: /opt/clowe-app/docker
+        files:
+          - docker-compose.yml
+        state: stopped
+
+    - name: Create and start services
+      community.docker.docker_compose_v2:
+        project_src: /opt/clowe-app/docker
+        files:
+          - docker-compose.yml
+        build: always
+        state: present
+
+    - name: run migrations
+      ansible.builtin.shell: docker compose exec -it clowe-app python manage.py migrate
+      args:
+        chdir: /opt/clowe-app/docker
