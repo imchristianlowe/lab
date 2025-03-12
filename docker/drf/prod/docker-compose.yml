@@ -1,0 +1,40 @@
+services:
+  clowe-drf:
+    container_name: clowe-drf
+    volumes:
+      - "clowe-app-logs:/var/log/app"
+    image: clowe-drf
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      DJANGO_SETTINGS_MODULE: project.settings-compose
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: password
+      POSTGRES_DB: clowe-app
+      POSTGRES_HOST: clowe-app-db
+      APPLE_APP_AUDIENCE: com.christianlowe.app
+    networks:
+      - default
+      - clowe-net
+  db:
+    container_name: clowe-app-db
+    image: postgres:17.4-alpine3.21
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: password
+      POSTGRES_DB: clowe-app
+      POSTGRES_HOST: clowe-app-db
+    volumes:
+      - "clowe-app-db-data:/var/lib/postgresql/data"
+
+volumes:
+  clowe-app-db-data:
+    name: clowe-app-db-data
+    external: false
+  clowe-app-logs:
+    name: clowe-app-logs
+    external: false
+
+networks:
+  clowe-net:
+    name: clowe-net
+    external: false
