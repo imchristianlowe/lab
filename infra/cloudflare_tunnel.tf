@@ -33,7 +33,7 @@ resource "cloudflare_zero_trust_tunnel_cloudflared_config" "this" {
     ingress = [
       {
         hostname = "api.christianlowe.com"
-        service  = "http://clowe-app:8000"
+        service  = "http://clowe-drf:8000"
       },
       {
         service = "http_status:404"
