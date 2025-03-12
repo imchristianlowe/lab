@@ -43,6 +43,7 @@
           dockerfile: /opt/clowe-app/docker/drf/Dockerfile
           path: /opt/clowe-app/drf
         source: build
+        force_source: true # forces a rebuild if the image name:tag already exists
       become_user: clowe-app
 
     - name: Stop existing services
