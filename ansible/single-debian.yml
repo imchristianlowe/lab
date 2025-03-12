@@ -67,3 +67,14 @@
       args:
         chdir: /opt/clowe-app/docker/drf/prod
       become_user: clowe-app
+
+    - name: Start Cloudflared
+      community.docker.docker_compose_v2:
+        project_src: /opt/clowe-app/docker
+        files:
+          - cloudflare.yml
+        state: present
+      become_user: clowe-app
+      when: run_cloudflare_container is defined and run_cloudflare_container | bool
+      environment:
+        TUNNEL_TOKEN: "{{ tunnel_token }}"

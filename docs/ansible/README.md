@@ -18,4 +18,10 @@ From the root directory run
 ansible-playbook ansible/single-debian.yml
 ```
 
+If you want to use a cloudflare tunnel to access the docker container externally
+
+```
+ansible-playbook -e run_cloudflare_container=true -e tunnel_token=${TOKEN} ansible/single-debian.yml
+```
+
 Setting up a user with the correct permissions to become root on the remote host is currently outside the scope of this tutorial.
