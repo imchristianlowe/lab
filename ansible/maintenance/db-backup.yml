@@ -1,0 +1,24 @@
+- name: Backup Docker Volumes and Env File to S3
+  hosts: clowe-app-webservers
+  become: true
+
+  tasks:
+    - name: Upload Backup to S3
+      ansible.builtin.shell: |
+        result=$(aws sts assume-role --role-arn ${AWS_IAM_ROLE} --role-session-name s3-backup)
+        export AWS_ACCESS_KEY_ID=$(echo $result | jq '.Credentials.AccessKeyId' -r)
+        export AWS_SECRET_ACCESS_KEY=$(echo $result | jq '.Credentials.SecretAccessKey' -r)
+        export AWS_SESSION_TOKEN=$(echo $result | jq '.Credentials.SessionToken' -r)
+        date=$(TZ=UTC date '+%Y-%m-%dT%H:%M:%S')
+        docker run --rm -it \
+          -v "clowe-app-db-data":/backup-volume \
+          -v /tmp:/backup \
+          busybox \
+          tar -zcvf /backup/${date}.tar.gz /backup-volume
+        aws s3 cp /tmp/${date}.tar.gz ${S3_PATH}/${date}.tar.gz
+        rm /tmp/${date}.tar.gz
+      environment:
+        S3_PATH: "{{ S3_PATH }}"
+        AWS_IAM_ROLE: "{{ AWS_IAM_ROLE }}"
+        AWS_ACCESS_KEY_ID: "{{ AWS_ACCESS_KEY_ID }}"
+        AWS_SECRET_ACCESS_KEY: "{{ AWS_SECRET_ACCESS_KEY }}"
