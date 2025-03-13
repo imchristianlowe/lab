@@ -1,0 +1,6 @@
+{
+  "S3_PATH": "changeme",
+  "AWS_IAM_ROLE": "changeme",
+  "AWS_ACCESS_KEY_ID": "changeme",
+  "AWS_SECRET_ACCESS_KEY": "changeme"
+}
