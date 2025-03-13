@@ -1,25 +1,9 @@
 ---
-- name: Install App As Service
+- name: Create Docker Containers
   hosts: clowe-app-webservers
   become: true
 
   tasks:
-    - name: Ensure group exists
-      ansible.builtin.group:
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - clowe-app
-        - docker
-
-    - name: Add the user 'clowe-app' with a group of clowe-app and docker
-      ansible.builtin.user:
-        name: clowe-app
-        comment: clowe-app user for running docker
-        groups:
-          - clowe-app
-          - docker
-
     - name: Copy docker files over
       ansible.builtin.copy:
         src: ../docker
