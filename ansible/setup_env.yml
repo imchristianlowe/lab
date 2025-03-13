@@ -1,0 +1,55 @@
+---
+- name: Create Env File
+  hosts: clowe-app-webservers
+  become: true
+
+  tasks:
+    - name: Create Directory
+      ansible.builtin.file:
+        path: /etc/clowe-app
+        state: directory
+        owner: clowe-app
+        group: docker
+        mode: "0500"
+
+    - name: Create File
+      ansible.builtin.file:
+        path: /etc/clowe-app/env
+        owner: clowe-app
+        group: docker
+        state: touch
+        mode: "0500"
+
+    - name: Ensure config file has db creds
+      ansible.builtin.lineinfile:
+        path: /etc/clowe-app/env
+        regexp: "POSTGRES_PASSWORD"
+        state: absent
+      check_mode: yes
+      changed_when: false
+      register: out
+
+    - name: Insert/Update "db creds" configuration block
+      ansible.builtin.blockinfile:
+        path: /etc/clowe-app/env
+        append_newline: true
+        prepend_newline: true
+        marker: "# DB Creds"
+        block: |
+          POSTGRES_PASSWORD={{lookup('community.general.random_string', length=32, min_lower=1, min_upper=1, min_special=1, min_numeric=1)}}
+          POSTGRES_USER=postgres
+          POSTGRES_DB=clowe-app
+          POSTGRES_HOST=clowe-drf-db
+      when: not out.found
+
+    - name: Insert/Update apple app audience line
+      ansible.builtin.lineinfile:
+        path: /etc/clowe-app/env
+        regexp: "^APPLE_APP_AUDIENCE="
+        line: APPLE_APP_AUDIENCE=com.christianlowe.app
+
+    - name: Insert/Update django settings module line
+      ansible.builtin.lineinfile:
+        path: /etc/clowe-app/env
+        regexp: "^DJANGO_SETTINGS_MODULE="
+        line: DJANGO_SETTINGS_MODULE=project.settings-compose
