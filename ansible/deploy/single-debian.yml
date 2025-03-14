@@ -6,7 +6,7 @@
   tasks:
     - name: Copy docker files over
       ansible.builtin.copy:
-        src: ../docker
+        src: ../../docker
         dest: /opt/clowe-app
         owner: clowe-app
         group: clowe-app
@@ -14,7 +14,7 @@
 
     - name: Copy DRF files over
       ansible.builtin.copy:
-        src: ../drf
+        src: ../../drf
         dest: /opt/clowe-app
         owner: clowe-app
         group: clowe-app
