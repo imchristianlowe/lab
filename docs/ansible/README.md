@@ -25,3 +25,15 @@ ansible-playbook -e run_cloudflare_container=true -e tunnel_token=${TOKEN} ansib
 ```
 
 Setting up a user with the correct permissions to become root on the remote host is currently outside the scope of this tutorial.
+
+## maintenance/db-backup.yml
+
+Copy and rename the ansible/maintenance/s3-backup-vars-sample.json file to s3-backup-vars.json in the ansible/maintenace folder.
+
+Replace the values from values obtained from applying the terraform.
+
+Run the command to take a backup of the database for the django rest framework app running in docker compose
+
+```
+ansible-playbook -e @ansible/maintenance/s3-backups-vars.json ansible/maintenance/db-backup.yml -vvvv
+```

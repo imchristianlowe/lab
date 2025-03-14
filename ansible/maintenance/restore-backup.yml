@@ -1,22 +1,21 @@
-- name: Backup Docker Volumes and Env File to S3
+- name: Restore Docker Volume from DB Backup
   hosts: clowe-app-webservers
   become: true
 
   tasks:
-    - name: Upload Backup to S3
+    - name: Restore Backup from S3
       ansible.builtin.shell: |
         result=$(aws sts assume-role --role-arn ${AWS_IAM_ROLE} --role-session-name s3-backup)
         export AWS_ACCESS_KEY_ID=$(echo $result | jq '.Credentials.AccessKeyId' -r)
         export AWS_SECRET_ACCESS_KEY=$(echo $result | jq '.Credentials.SecretAccessKey' -r)
         export AWS_SESSION_TOKEN=$(echo $result | jq '.Credentials.SessionToken' -r)
-        date=$(TZ=UTC date '+%Y-%m-%dT%H:%M:%S')
-        docker compose exec db pg_dumpall -c -U postgres > /tmp/backup_${date}.sql
-        aws s3 cp /tmp/backup_${date}.sql ${S3_PATH}/backup_${date}.sql
-        rm /tmp/backup_${date}.sql
+        aws s3 cp ${BACKUP_FILE} /tmp/restore.sql
+        cat /tmp/restore.sql | docker compose exec db psql -U postgres
+        rm /tmp/restore.sql
       environment:
-        S3_PATH: "{{ S3_PATH }}"
         AWS_IAM_ROLE: "{{ AWS_IAM_ROLE }}"
         AWS_ACCESS_KEY_ID: "{{ AWS_ACCESS_KEY_ID }}"
         AWS_SECRET_ACCESS_KEY: "{{ AWS_SECRET_ACCESS_KEY }}"
+        BACKUP_FILE: "{{ BACKUP_FILE }}"
       args:
         chdir: /opt/clowe-app/docker/drf/prod
