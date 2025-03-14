@@ -55,15 +55,37 @@ data "aws_iam_policy_document" "s3_backup_policy" {
 
 data "aws_iam_policy_document" "user_policy_document" {
   statement {
-    sid = "1"
+    sid = "AllowAssumeRole"
+
+    effect = "Allow"
 
     actions = [
       "sts:AssumeRole",
     ]
 
     resources = [
-      "*",
+      aws_iam_role.s3_backups.arn,
     ]
+  }
+
+  statement {
+    sid = "DenyAssumeRole"
+
+    effect = "Deny"
+
+    actions = [
+      "sts:AssumeRole",
+    ]
+
+    resources = [
+      aws_iam_role.s3_backups.arn,
+    ]
+
+    condition {
+      test     = "NotIpAddress"
+      values = ["71.86.96.205/32"]
+      variable = "aws:SourceIp"
+    }
   }
 }
 
