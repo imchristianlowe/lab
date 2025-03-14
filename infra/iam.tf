@@ -43,11 +43,12 @@ data "aws_iam_policy_document" "s3_backup_policy" {
     sid = "1"
 
     actions = [
-      "s3:*",
+      "s3:PutObject",
     ]
 
     resources = [
-      "*",
+      aws_s3_bucket.backups.arn,
+      "${aws_s3_bucket.backups.arn}/*"
     ]
   }
 }
