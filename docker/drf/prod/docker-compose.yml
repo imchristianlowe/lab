@@ -18,7 +18,7 @@ services:
     env_file:
       - /etc/clowe-app/env
     volumes:
-      - "clowe-app-db-data:/var/lib/postgresql/data"
+      - "clowe-app-db-data:/var/lib/postgresql"
 
 volumes:
   clowe-app-db-data:
