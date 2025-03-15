@@ -3,6 +3,7 @@ services:
     container_name: clowe-drf
     volumes:
       - "../../../drf:/usr/src/app"
+      - "./logs:/var/log/app"
     build:
       context: ../../../drf
       dockerfile: ../docker/drf/Dockerfile
