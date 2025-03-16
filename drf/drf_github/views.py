@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from rest_framework import permissions
 from rest_framework.views import APIView
 
+from drf_github.serializers import GithubIssueSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -61,10 +62,12 @@ class GithubIssue(APIView):
             "Authorization": f"Bearer {gh_token}",
             "X-GitHub-Api-Version": "2022-11-28"
         }
+        serializer = GithubIssueSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
         payload = {
-            "title": "Found a bug",
-            "body": "help!",
-            "labels": ["enhancement"]
+            "title": serializer.data["title"],
+            "body": serializer.data.get("body", None),
+            "labels": [serializer.data["label"]]
         }
         response = requests.post(url="https://api.github.com/repos/imchristianlowe/my_mobile_app/issues",
                                  headers=headers, json=payload)
