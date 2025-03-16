@@ -6,8 +6,8 @@
   tasks:
     - name: Copy docker files over
       ansible.builtin.copy:
-        src: ../../docker/prod
-        dest: /opt/clowe-app
+        src: ../../docker/prod/
+        dest: /opt/clowe-app/docker
         owner: clowe-app
         group: clowe-app
         mode: u+rwx,g-wx,o-rwx
@@ -31,7 +31,7 @@
 
     - name: Stop existing services
       community.docker.docker_compose_v2:
-        project_src: /opt/clowe-app/docker/drf/prod
+        project_src: /opt/clowe-app/docker/drf
         files:
           - docker-compose.yml
         state: stopped
@@ -39,7 +39,7 @@
 
     - name: Create and start services
       community.docker.docker_compose_v2:
-        project_src: /opt/clowe-app/docker/drf/prod
+        project_src: /opt/clowe-app/docker/drf
         files:
           - docker-compose.yml
         build: always
@@ -49,14 +49,14 @@
     - name: run migrations
       ansible.builtin.shell: docker compose exec -it clowe-drf python manage.py migrate
       args:
-        chdir: /opt/clowe-app/docker/drf/prod
+        chdir: /opt/clowe-app/docker/drf
       become_user: clowe-app
 
     - name: Start Cloudflared
       community.docker.docker_compose_v2:
-        project_src: /opt/clowe-app/docker
+        project_src: /opt/clowe-app/docker/cloudflare_tunnel
         files:
-          - cloudflare.yml
+          - docker-compose.yml
         state: present
       become_user: clowe-app
       when: run_cloudflare_container is defined and run_cloudflare_container | bool
