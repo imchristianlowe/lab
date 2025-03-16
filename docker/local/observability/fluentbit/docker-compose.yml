@@ -1,0 +1,15 @@
+services:
+  fluentbit:
+    container_name: clowe-fluent-bit
+    image: fluent/fluent-bit
+    volumes:
+      - ./fluentbit-backend.conf:/fluent-bit/etc/fluent-bit.conf
+      - ./fluentbit-parsers.conf:/fluent-bit/etc/custom_parsers.conf
+      - ../../drf/logs:/var/log/app
+    networks:
+      - clowe-net
+
+networks:
+  clowe-net:
+    name: clowe-net
+    external: true
