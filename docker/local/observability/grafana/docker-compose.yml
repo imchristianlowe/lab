@@ -8,7 +8,7 @@ services:
       - ./loki-config.yaml:/etc/loki/loki-config.yaml
     command: -config.file=/etc/loki/loki-config.yaml
     networks:
-      - grafana-net
+      - clowe-net
 
   prometheus:
     image: prom/prometheus:v2.46.0
@@ -18,7 +18,7 @@ services:
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     networks:
-      - grafana-net
+      - clowe-net
 
   grafana:
     image: grafana/grafana:latest
@@ -28,13 +28,13 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - grafana-net
+      - clowe-net
 
 volumes:
   grafana-data:
     name: grafana-data
 
 networks:
-  grafana-net:
-    name: grafana-net
-    external: false
+  clowe-net:
+    name: clowe-net
+    external: true
