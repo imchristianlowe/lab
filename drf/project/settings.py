@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'drf_logging.middleware.RequestLogMiddleware',
+    'drf_extras.middleware.RequestLogMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -204,7 +204,7 @@ LOGGING = {
             "level": "DEBUG",
             "propagate": False,
         },
-        "drf_logging": {
+        "drf_extras": {
             "handlers": ["json_console", "file"],
             "level": "DEBUG",
             "propagate": False,
