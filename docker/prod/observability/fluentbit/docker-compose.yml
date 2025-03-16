@@ -6,6 +6,8 @@ services:
       - ./fluentbit-backend.conf:/fluent-bit/etc/fluent-bit.conf
       - ./fluentbit-parsers.conf:/fluent-bit/etc/custom_parsers.conf
       - clowe-app-logs:/var/log/app
-    networks:
-      - opensearch-net
-      - grafana-net
+
+volumes:
+  clowe-app-logs:
+    name: clowe-app-logs
+    external: true
