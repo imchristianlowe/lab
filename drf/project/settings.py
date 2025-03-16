@@ -193,7 +193,7 @@ LOGGING = {
         }
     },
     "root": {
-        "handlers": ["simple_console"],
+        "handlers": ["null"],
     },
     "loggers": {
         "django": {
@@ -205,7 +205,12 @@ LOGGING = {
             "propagate": False,
         },
         "drf_extras": {
-            "handlers": ["json_console", "file"],
+            "handlers": [ "file"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
+        "drf_github": {
+            "handlers": [ "simple_console"],
             "level": "DEBUG",
             "propagate": False,
         },
@@ -214,3 +219,12 @@ LOGGING = {
 
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+with open("./project/app-key.pem", 'rb') as pem_file:
+    signing_key = pem_file.read()
+
+GITHUB_APP = {
+    "CLIENT_ID": os.environ.get("GITHUB_APP_CLIENT_ID"),
+    "APP_SECRET": signing_key,
+    "APP_INSTALLATION_ID": os.environ.get("GITHUB_APP_INSTALLATION_ID"),
+}
