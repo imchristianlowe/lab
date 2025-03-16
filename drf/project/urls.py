@@ -21,9 +21,9 @@ from django.urls.conf import include
 from apple_users import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
-    path('api/', include('django_prometheus.urls')),
-    path('api/', include('drf_github.urls')),
-    path('validate_apple_id_token/', views.validate_id_token),
+    path("admin/", admin.site.urls),
+    path("api-auth/", include("rest_framework.urls")),
+    path("api/", include("django_prometheus.urls")),
+    path("api/", include("drf_github.urls")),
+    path("validate_apple_id_token/", views.validate_id_token),
 ]

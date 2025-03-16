@@ -9,3 +9,8 @@ repos:
     rev: "f62a70a3a7114896b062de517d72829ea1c884b6"
     hooks:
       - id: prettier
+  - repo: https://github.com/ambv/black
+    rev: stable
+    hooks:
+      - id: black
+        language_version: python3.12

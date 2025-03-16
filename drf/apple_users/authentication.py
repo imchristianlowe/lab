@@ -40,7 +40,7 @@ class AppleIdToken:
 
 class AppleIdTokenAuthentication(authentication.BaseAuthentication):
     def authenticate(self, request):
-        id_token = request.META.get('HTTP_X_APPLE_ID_TOKEN')
+        id_token = request.META.get("HTTP_X_APPLE_ID_TOKEN")
 
         if not id_token:
             return None
@@ -53,7 +53,12 @@ class AppleIdTokenAuthentication(authentication.BaseAuthentication):
 
         apple_public_key = RSAAlgorithm.from_jwk(json.dumps(key))
 
-        verified_decoded = jwt.decode(id_token, apple_public_key, audience=settings.APPLE_APP_AUDIENCE, algorithms=[key["alg"]])
+        verified_decoded = jwt.decode(
+            id_token,
+            apple_public_key,
+            audience=settings.APPLE_APP_AUDIENCE,
+            algorithms=[key["alg"]],
+        )
 
         apple_id_token = AppleIdToken(**verified_decoded)
 
@@ -62,7 +67,9 @@ class AppleIdTokenAuthentication(authentication.BaseAuthentication):
             apple_user_info = AppleUserInfo.objects.get(sub=apple_id_token.sub)
             user = apple_user_info.user
         except User.DoesNotExist:
-            logger.debug(f"Did not find user with Apple sub as {apple_id_token.sub}. Creating")
+            logger.debug(
+                f"Did not find user with Apple sub as {apple_id_token.sub}. Creating"
+            )
 
             with transaction.atomic():
                 user = User(username=apple_id_token.sub, email=apple_id_token.email)
