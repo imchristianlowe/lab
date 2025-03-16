@@ -184,23 +184,30 @@ LOGGING = {
             "class": "logging.FileHandler",
             "filename": "/var/log/app/app.log",
             "formatter": "json",
+        },
+        "rotating_file": {
+            "class": "logging.handlers.RotatingFileHandler",
+            "filename": "/var/log/app/app.log",
+            "formatter": "json",
+            "backupCount": 5,
+            "maxBytes": 5
         }
     },
     "root": {
-        "handlers": ["simple_console"],
+        "handlers": ["null"],
     },
     "loggers": {
         "django": {
             "handlers": ["null"],
         },
         "apple_users": {
-            "handlers": ["json_console"],
-            "level": "DEBUG",
+            "handlers": ["rotating_file"],
+            "level": "INFO",
             "propagate": False,
         },
         "drf_logging": {
-            "handlers": ["json_console", "file"],
-            "level": "DEBUG",
+            "handlers": ["rotating_file"],
+            "level": "INFO",
             "propagate": False,
         },
     },
