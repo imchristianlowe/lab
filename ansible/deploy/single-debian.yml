@@ -6,7 +6,7 @@
   tasks:
     - name: Copy docker files over
       ansible.builtin.copy:
-        src: ../../docker
+        src: ../../docker/prod
         dest: /opt/clowe-app
         owner: clowe-app
         group: clowe-app
@@ -24,7 +24,6 @@
       community.docker.docker_image:
         name: clowe-drf
         build:
-          dockerfile: /opt/clowe-app/docker/drf/Dockerfile
           path: /opt/clowe-app/drf
         source: build
         force_source: true # forces a rebuild if the image name:tag already exists
