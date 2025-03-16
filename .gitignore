@@ -4,3 +4,4 @@ db.sqlite3
 *__pycache__*
 /ansible/maintenance/s3-backups-vars.json
 /docker/local/drf/logs/
+/docker/prod/observability/fluentbit/fluentbit-backend.conf
