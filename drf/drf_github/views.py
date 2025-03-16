@@ -63,7 +63,8 @@ class GithubIssue(APIView):
         }
         payload = {
             "title": "Found a bug",
-            "body": "help!"
+            "body": "help!",
+            "labels": ["enhancement"]
         }
         response = requests.post(url="https://api.github.com/repos/imchristianlowe/my_mobile_app/issues",
                                  headers=headers, json=payload)
