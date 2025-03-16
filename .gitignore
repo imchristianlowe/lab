@@ -6,3 +6,4 @@ db.sqlite3
 /docker/local/drf/logs/
 /docker/prod/observability/fluentbit/fluentbit-backend.conf
 /drf/project/app-key.pem
+/docker/local/drf/env.overrides
