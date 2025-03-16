@@ -205,7 +205,7 @@ LOGGING = {
             "level": "INFO",
             "propagate": False,
         },
-        "drf_logging": {
+        "drf_extras": {
             "handlers": ["rotating_file"],
             "level": "INFO",
             "propagate": False,
