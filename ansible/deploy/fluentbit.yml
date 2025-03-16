@@ -1,0 +1,30 @@
+---
+- name: Create FluentBit Docker Containers
+  hosts: clowe-app-webservers
+  become: true
+
+  tasks:
+    - name: Copy docker files over
+      ansible.builtin.copy:
+        src: ../../docker/prod/
+        dest: /opt/clowe-app/docker
+        owner: clowe-app
+        group: clowe-app
+        mode: u+rwx,g-wx,o-rwx
+
+    - name: Stop existing services
+      community.docker.docker_compose_v2:
+        project_src: /opt/clowe-app/docker/observability/fluentbit
+        files:
+          - docker-compose.yml
+        state: stopped
+      become_user: clowe-app
+
+    - name: Create and start services
+      community.docker.docker_compose_v2:
+        project_src: /opt/clowe-app/docker/observability/fluentbit
+        files:
+          - docker-compose.yml
+        build: always
+        state: present
+      become_user: clowe-app
