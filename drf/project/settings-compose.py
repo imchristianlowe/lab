@@ -142,7 +142,10 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
-    ]
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "apple_users.authentication.AppleIdTokenAuthentication"
+    ],
 }
 
 APPLE_JWT_URL = "https://appleid.apple.com/auth/keys"
