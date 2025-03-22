@@ -46,7 +46,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    "drf_logging.middleware.RequestLogMiddleware",
+    "drf_extras.middleware.RequestLogMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django_prometheus.middleware.PrometheusBeforeMiddleware",
     "django.middleware.security.SecurityMiddleware",
