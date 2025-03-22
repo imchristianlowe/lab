@@ -43,6 +43,7 @@ export default function Index() {
         name={"body"}
         control={control}
         placeholder={"Longer Description"}
+        multiline
       />
       <Button
         title={"Submit"}
