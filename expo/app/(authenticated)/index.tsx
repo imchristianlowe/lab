@@ -1,4 +1,4 @@
-import { Button } from "react-native";
+import { Button, Keyboard } from "react-native";
 
 import { useSession } from "@/ctx";
 import useAppAxios from "@/hooks/useAppAxios";
@@ -48,7 +48,10 @@ export default function Index() {
         name={"body"}
         control={control}
         placeholder={"Longer Description"}
+        blurOnSubmit={true}
         multiline
+        numberOfLines={4}
+        returnKeyType={"done"}
       />
       <Button
         title={"Submit"}

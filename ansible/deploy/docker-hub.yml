@@ -13,6 +13,7 @@
         name: imchristianlowe/clowe-drf
         path: ../../drf
         tag: latest
+        rebuild: always
         platform:
           - linux/amd64
           - linux/arm64
@@ -29,6 +30,7 @@
         push: true
         tag: latest
         source: local
+      when: push is defined and push | bool
 
     - name: Push image
       community.docker.docker_image:
@@ -36,3 +38,4 @@
         push: true
         tag: "{{ hash_result.stdout_lines[0] }}"
         source: local
+      when: push is defined and push | bool
