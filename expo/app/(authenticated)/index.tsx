@@ -20,7 +20,7 @@ const TextInputWrapper = ({ name, control }) => {
 };
 
 const DropDownWrapper = ({ choices, control, name }) => {
-  const { field } = useController({ control, defaultValue: null, name });
+  const { field } = useController({ control, defaultValue: "", name });
 
   const [open, setOpen] = useState(false);
 
@@ -32,7 +32,7 @@ const DropDownWrapper = ({ choices, control, name }) => {
       value={field.value}
       items={items}
       setOpen={setOpen}
-      setValue={field.onChange}
+      setValue={(callback: any) => field.onChange(callback())}
       setItems={setItems}
     />
   );
@@ -45,6 +45,9 @@ export default function Index() {
 
   const onSubmit = (data) => {
     alert(JSON.stringify(data));
+    axios.post("http://localhost:8000/api/new_issue/", data).catch((error) => {
+      alert(JSON.stringify(error.response.data));
+    });
   };
 
   const { control, handleSubmit } = useForm();
