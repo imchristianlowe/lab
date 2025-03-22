@@ -14,10 +14,14 @@ export default function Index() {
   const axios = useAppAxios();
 
   const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-    axios.post("http://localhost:8000/api/new_issue/", data).catch((error) => {
-      alert(JSON.stringify(error.response.data));
-    });
+    axios
+      .post(`${process.env.EXPO_PUBLIC_API_URL}/api/new_issue/`, data)
+      .then((response) => {
+        alert("Ticket created");
+      })
+      .catch((error) => {
+        alert(JSON.stringify(error.response.data));
+      });
   };
 
   const { control, handleSubmit } = useForm();
@@ -33,6 +37,7 @@ export default function Index() {
       style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
     >
       <ThemedText>Submit a Ticket</ThemedText>
+      <ThemedText>{process.env.EXPO_PUBLIC_API_URL}</ThemedText>
       <SingleSelectWrapper control={control} choices={choices} name={"label"} />
       <TextInputWrapper
         name={"title"}
