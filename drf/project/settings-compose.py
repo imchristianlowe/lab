@@ -219,3 +219,14 @@ LOGGING = {
 CORS_ALLOW_ALL_ORIGINS = True
 
 CSRF_TRUSTED_ORIGINS = ["https://*.christianlowe.com"]
+
+with open("./project/app-key.pem", "rb") as pem_file:
+    signing_key = pem_file.read()
+
+GITHUB_APP = {
+    "CLIENT_ID": os.environ.get("GITHUB_APP_CLIENT_ID"),
+    "APP_SECRET": signing_key,
+    "APP_INSTALLATION_ID": os.environ.get("GITHUB_APP_INSTALLATION_ID"),
+    "REPO_OWNER": os.environ.get("GITHUB_REPO_OWNER"),
+    "REPO": os.environ.get("GITHUB_REPO"),
+}
