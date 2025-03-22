@@ -1,11 +1,10 @@
 import json
 import logging
-import time
 from dataclasses import dataclass
 
 from django.contrib.auth import get_user_model
+from jwt import InvalidAudienceError
 from rest_framework import authentication
-from rest_framework import exceptions
 import jwt
 from jwt.algorithms import RSAAlgorithm
 
@@ -53,12 +52,17 @@ class AppleIdTokenAuthentication(authentication.BaseAuthentication):
 
         apple_public_key = RSAAlgorithm.from_jwk(json.dumps(key))
 
-        verified_decoded = jwt.decode(
-            id_token,
-            apple_public_key,
-            audience=settings.APPLE_APP_AUDIENCE,
-            algorithms=[key["alg"]],
-        )
+        try:
+            verified_decoded = jwt.decode(
+                id_token,
+                apple_public_key,
+                audience=settings.APPLE_APP_AUDIENCE,
+                algorithms=[key["alg"]],
+            )
+        except InvalidAudienceError as iae:
+            logger.exception("error")
+            logger.exception(iae.args)
+            raise iae
 
         apple_id_token = AppleIdToken(**verified_decoded)
 
@@ -66,7 +70,7 @@ class AppleIdTokenAuthentication(authentication.BaseAuthentication):
             logger.debug(f"Attempting to find Apple User with {apple_id_token.sub}")
             apple_user_info = AppleUserInfo.objects.get(sub=apple_id_token.sub)
             user = apple_user_info.user
-        except User.DoesNotExist:
+        except AppleUserInfo.DoesNotExist:
             logger.debug(
                 f"Did not find user with Apple sub as {apple_id_token.sub}. Creating"
             )
