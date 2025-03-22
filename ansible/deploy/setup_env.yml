@@ -53,3 +53,29 @@
         path: /etc/clowe-app/env
         regexp: "^DJANGO_SETTINGS_MODULE="
         line: DJANGO_SETTINGS_MODULE=project.settings-compose
+
+    - name: Insert/Update Github App Client Id
+      ansible.builtin.lineinfile:
+        path: /etc/clowe-app/env
+        regexp: "^GITHUB_APP_CLIENT_ID="
+        line: GITHUB_APP_CLIENT_ID={{ github_app_client_id }}
+      when: github_app_client_id is defined
+
+    - name: Insert/Update Github App Installation Id
+      ansible.builtin.lineinfile:
+        path: /etc/clowe-app/env
+        regexp: "^GITHUB_APP_INSTALLATION_ID="
+        line: GITHUB_APP_INSTALLATION_ID={{ github_app_installation_id }}
+      when: github_app_installation_id is defined
+
+    - name: Insert/Update Github Repo Owner
+      ansible.builtin.lineinfile:
+        path: /etc/clowe-app/env
+        regexp: "^GITHUB_REPO_OWNER="
+        line: GITHUB_REPO_OWNER=imchristianlowe
+
+    - name: Insert/Update Github Repo
+      ansible.builtin.lineinfile:
+        path: /etc/clowe-app/env
+        regexp: "^GITHUB_REPO="
+        line: GITHUB_REPO=my_mobile_app
