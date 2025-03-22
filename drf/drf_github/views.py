@@ -55,7 +55,7 @@ class GithubIssue(APIView):
     * Only admin users are able to access this view.
     """
 
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, format=None):
         """
