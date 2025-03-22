@@ -12,23 +12,6 @@
         group: clowe-app
         mode: u+rwx,g-wx,o-rwx
 
-    - name: Copy DRF files over
-      ansible.builtin.copy:
-        src: ../../drf
-        dest: /opt/clowe-app
-        owner: clowe-app
-        group: clowe-app
-        mode: u+rw,g-wx,o-rwx
-
-    - name: Build DRF Image
-      community.docker.docker_image:
-        name: clowe-drf
-        build:
-          path: /opt/clowe-app/drf
-        source: build
-        force_source: true # forces a rebuild if the image name:tag already exists
-      become_user: clowe-app
-
     - name: Stop existing services
       community.docker.docker_compose_v2:
         project_src: /opt/clowe-app/docker/drf
@@ -42,7 +25,6 @@
         project_src: /opt/clowe-app/docker/drf
         files:
           - docker-compose.yml
-        build: always
         state: present
       become_user: clowe-app
 
