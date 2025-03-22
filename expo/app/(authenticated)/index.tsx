@@ -6,6 +6,18 @@ import { useState } from "react";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import DropDownPicker from "react-native-dropdown-picker";
+import { useController, useForm } from "react-hook-form";
+
+const TextInputWrapper = ({ name, control }) => {
+  const { field } = useController({ control, defaultValue: "", name });
+  return (
+    <TextInput
+      value={field.value}
+      onChangeText={field.onChange}
+      style={styles.input}
+    />
+  );
+};
 
 export default function Index() {
   const { signOut } = useSession();
@@ -22,6 +34,12 @@ export default function Index() {
     { label: "Bug", value: "bug" },
   ]);
 
+  const onSubmit = (data) => {
+    alert(JSON.stringify(data));
+  };
+
+  const { control, handleSubmit } = useForm();
+
   return (
     <ThemedView
       style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
@@ -35,18 +53,12 @@ export default function Index() {
         setValue={setValue}
         setItems={setItems}
       />
-      <TextInput name={"test"} style={styles.input} placeholder={"Title"} />
-      <TextInput
-        name={"test"}
-        style={styles.input}
-        placeholder={"Description"}
-      />
+      <TextInputWrapper name={"test"} control={control} />
+      <TextInputWrapper name={"other"} control={control} />
       <Button
         title={"Submit"}
         type={"submit"}
-        onPress={() => {
-          console.log("what");
-        }}
+        onPress={handleSubmit(onSubmit)}
       />
       <ThemedText
         onPress={() => {
