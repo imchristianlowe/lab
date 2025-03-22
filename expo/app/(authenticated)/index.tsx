@@ -34,8 +34,16 @@ export default function Index() {
     >
       <ThemedText>Submit a Ticket</ThemedText>
       <SingleSelectWrapper control={control} choices={choices} name={"label"} />
-      <TextInputWrapper name={"title"} control={control} />
-      <TextInputWrapper name={"body"} control={control} />
+      <TextInputWrapper
+        name={"title"}
+        control={control}
+        placeholder={"Summary"}
+      />
+      <TextInputWrapper
+        name={"body"}
+        control={control}
+        placeholder={"Longer Description"}
+      />
       <Button
         title={"Submit"}
         type={"submit"}
