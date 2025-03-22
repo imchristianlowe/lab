@@ -191,7 +191,7 @@ LOGGING = {
             "filename": "/var/log/app/app.log",
             "formatter": "json",
             "backupCount": 5,
-            "maxBytes": 5,
+            "maxBytes": 1024 * 1024 * 10,
         },
     },
     "root": {
@@ -202,7 +202,7 @@ LOGGING = {
             "handlers": ["null"],
         },
         "apple_users": {
-            "handlers": ["json_console"],
+            "handlers": ["file"],
             "level": "DEBUG",
             "propagate": False,
         },
