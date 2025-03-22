@@ -19,20 +19,29 @@ const TextInputWrapper = ({ name, control }) => {
   );
 };
 
+const DropDownWrapper = ({ choices, control, name }) => {
+  const { field } = useController({ control, defaultValue: null, name });
+
+  const [open, setOpen] = useState(false);
+
+  const [items, setItems] = useState(choices);
+
+  return (
+    <DropDownPicker
+      open={open}
+      value={field.value}
+      items={items}
+      setOpen={setOpen}
+      setValue={field.onChange}
+      setItems={setItems}
+    />
+  );
+};
+
 export default function Index() {
   const { signOut } = useSession();
 
-  let [message, setMessage] = useState("");
-
   const axios = useAppAxios();
-
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: "Feature Request", value: "enhancement" },
-    { label: "UI Improvement", value: "ui improvement" },
-    { label: "Bug", value: "bug" },
-  ]);
 
   const onSubmit = (data) => {
     alert(JSON.stringify(data));
@@ -40,21 +49,20 @@ export default function Index() {
 
   const { control, handleSubmit } = useForm();
 
+  const choices = [
+    { label: "Feature Request", value: "enhancement" },
+    { label: "UI Improvement", value: "ui improvement" },
+    { label: "Bug", value: "bug" },
+  ];
+
   return (
     <ThemedView
       style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
     >
       <ThemedText>Submit a Ticket</ThemedText>
-      <DropDownPicker
-        open={open}
-        value={value}
-        items={items}
-        setOpen={setOpen}
-        setValue={setValue}
-        setItems={setItems}
-      />
-      <TextInputWrapper name={"test"} control={control} />
-      <TextInputWrapper name={"other"} control={control} />
+      <DropDownWrapper control={control} choices={choices} name={"label"} />
+      <TextInputWrapper name={"title"} control={control} />
+      <TextInputWrapper name={"body"} control={control} />
       <Button
         title={"Submit"}
         type={"submit"}
@@ -68,7 +76,6 @@ export default function Index() {
       >
         Sign Out
       </ThemedText>
-      <ThemedText>{message}</ThemedText>
     </ThemedView>
   );
 }
