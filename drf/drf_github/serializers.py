@@ -8,6 +8,7 @@ class GithubIssueSerializer(serializers.Serializer):
         choices=(
             ("bug", "bug"),
             ("enhancement", "feature request"),
+            ("ui improvement", "ui improvement"),
         ),
         required=True,
     )
