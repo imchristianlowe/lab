@@ -6,7 +6,7 @@ import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { useForm } from "react-hook-form";
 import { TextInputWrapper } from "@/components/form/TextInputWrapper";
-import { SingleSelectWrapper } from "@/components/SingleSelectWrapper";
+import { SingleSelectWrapper } from "@/components/form/SingleSelectWrapper";
 
 export default function Index() {
   const { signOut } = useSession();
