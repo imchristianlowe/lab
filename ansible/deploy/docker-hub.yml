@@ -1,0 +1,38 @@
+---
+- name: Build and Push to Docker Hub
+  hosts: localhost
+
+  tasks:
+    - name: Get repo hash for tag
+      ansible.builtin.shell: |
+        git rev-parse --verify HEAD
+      register: hash_result
+
+    - name: Build multi-platform image
+      community.docker.docker_image_build:
+        name: imchristianlowe/clowe-drf
+        path: ../../drf
+        tag: latest
+        platform:
+          - linux/amd64
+          - linux/arm64
+
+    - name: Tag image with hash
+      community.docker.docker_image_tag:
+        name: imchristianlowe/clowe-drf
+        repository:
+          - imchristianlowe/clowe-drf:{{ hash_result.stdout_lines[0] }}
+
+    - name: Push image
+      community.docker.docker_image:
+        name: imchristianlowe/clowe-drf
+        push: true
+        tag: latest
+        source: local
+
+    - name: Push image
+      community.docker.docker_image:
+        name: imchristianlowe/clowe-drf
+        push: true
+        tag: "{{ hash_result.stdout_lines[0] }}"
+        source: local
