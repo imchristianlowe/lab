@@ -1,26 +1,14 @@
-import {
-  Platform,
-  Text,
-  StyleSheet,
-  TouchableWithoutFeedback,
-} from "react-native";
-import { Redirect, Stack } from "expo-router";
+import { Text, StyleSheet, TouchableWithoutFeedback } from "react-native";
+import { Redirect } from "expo-router";
 import { Tabs, TabList, TabTrigger, TabSlot } from "expo-router/ui";
 
 import { useSession } from "@/ctx";
-import { Colors } from "@/constants/Colors";
-import { HapticTab } from "@/components/HapticTab";
-import TabBarBackground from "@/components/ui/TabBarBackground";
-import { IconSymbol } from "@/components/ui/IconSymbol";
 import React, { useState } from "react";
-import { useColorScheme } from "@/hooks/useColorScheme";
 import { CustomTabButton } from "@/components/ui/CustomTabButton";
-import { is } from "@babel/types";
 import { ToggleMenuButton } from "@/components/ui/ToggleMenuButton";
 
 export default function AppLayout() {
   const { session, isLoading } = useSession();
-  const colorScheme = useColorScheme();
   const [isExpanded, setIsExpanded] = useState(false);
 
   // You can keep the splash screen open, or render a loading screen like we do here.
