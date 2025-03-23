@@ -60,6 +60,15 @@ export default function AppLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="ticket"
+        options={{
+          title: "Ticket",
+          tabBarIcon: ({ color }) => (
+            <IconSymbol size={28} name="ticket.fill" color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }
