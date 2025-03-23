@@ -3,7 +3,7 @@ import { Button, TouchableWithoutFeedback, View } from "react-native";
 import useAppAxios from "@/hooks/useAppAxios";
 import { ThemedText } from "@/components/ThemedText";
 import { useForm } from "react-hook-form";
-import { TextInputWrapper } from "@/components/form/TextInputWrapper";
+import { ThemedTextInputWrapper } from "@/components/form/ThemedTextInputWrapper";
 import { SingleSelectWrapper } from "@/components/form/SingleSelectWrapper";
 import { ThemedSafeAreaView } from "@/components/ThemedSafeAreaView";
 import { useState } from "react";
@@ -46,12 +46,19 @@ export default function Ticket() {
           name={"label"}
           open={isDropDownOpen}
           setOpen={setIsDropDownOpen}
+          style={{ marginBottom: 5, marginTop: 5 }}
         />
-        <TextInputWrapper
+        <ThemedTextInputWrapper
           name={"title"}
           control={control}
           placeholder={"Summary"}
-          style={{ borderWidth: 1, borderColor: "black", padding: 10 }}
+          style={{
+            borderWidth: 1,
+            borderColor: "black",
+            padding: 10,
+            marginTop: 5,
+            marginBottom: 5,
+          }}
         />
         <View
           style={{
@@ -59,19 +66,21 @@ export default function Ticket() {
             borderStyle: "solid",
             borderWidth: 1,
             borderColor: "black",
-            marginTop: 10,
-            marginBottom: 10,
+            marginTop: 5,
+            marginBottom: 5,
+            padding: 10,
           }}
         >
-          <TextInputWrapper
+          <ThemedTextInputWrapper
             name={"body"}
             control={control}
             placeholder={"Longer Description"}
-            // blurOnSubmit={true}
+            blurOnSubmit={true}
             numberOfLines={8}
             multiline
             maxLength={40}
             returnKeyType={"done"}
+            style={{ height: "100%" }}
           />
         </View>
         <Button

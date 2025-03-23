@@ -8,6 +8,7 @@ export const SingleSelectWrapper = ({
   name,
   open,
   setOpen,
+  ...otherProps
 }) => {
   const { field } = useController({ control, defaultValue: "", name });
 
@@ -21,6 +22,7 @@ export const SingleSelectWrapper = ({
       setOpen={setOpen}
       setValue={(callback: any) => field.onChange(callback())}
       setItems={setItems}
+      {...otherProps}
     />
   );
 };
