@@ -7,9 +7,11 @@ import { ThemedTextInputWrapper } from "@/components/form/ThemedTextInputWrapper
 import { SingleSelectWrapper } from "@/components/form/SingleSelectWrapper";
 import { ThemedSafeAreaView } from "@/components/ThemedSafeAreaView";
 import { useState } from "react";
+import { useThemeColor } from "@/hooks/useThemeColor";
 
 export default function Ticket() {
   const axios = useAppAxios();
+  const backgroundColor = useThemeColor({}, "inputBackground");
 
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
@@ -69,6 +71,7 @@ export default function Ticket() {
             marginTop: 5,
             marginBottom: 5,
             padding: 10,
+            backgroundColor,
           }}
         >
           <ThemedTextInputWrapper
