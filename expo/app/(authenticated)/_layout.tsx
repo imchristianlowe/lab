@@ -1,4 +1,9 @@
-import { Platform, Text, StyleSheet } from "react-native";
+import {
+  Platform,
+  Text,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { Redirect, Stack } from "expo-router";
 import { Tabs, TabList, TabTrigger, TabSlot } from "expo-router/ui";
 
@@ -36,30 +41,36 @@ export default function AppLayout() {
   }
 
   return (
-    <Tabs>
-      <TabSlot />
-      <TabList style={styles.tabList}>
-        <TabTrigger name="home" href="/" asChild>
-          <CustomTabButton icon={"home"} isExpanded={isExpanded} index={2}>
-            Home
-          </CustomTabButton>
-        </TabTrigger>
-        <TabTrigger name="profile" href="/profile" asChild>
-          <CustomTabButton icon={"person"} isExpanded={isExpanded} index={1}>
-            Profile
-          </CustomTabButton>
-        </TabTrigger>
-        <TabTrigger name="ticket" href="/ticket" asChild>
-          <CustomTabButton icon={"ticket"} isExpanded={isExpanded} index={0}>
-            Ticket
-          </CustomTabButton>
-        </TabTrigger>
-        <ToggleMenuButton
-          onPress={toggleExpandHandler}
-          isExpanded={isExpanded}
-        />
-      </TabList>
-    </Tabs>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        toggleExpandHandler();
+      }}
+    >
+      <Tabs>
+        <TabSlot />
+        <TabList style={styles.tabList}>
+          <TabTrigger name="home" href="/" asChild>
+            <CustomTabButton icon={"home"} isExpanded={isExpanded} index={2}>
+              Home
+            </CustomTabButton>
+          </TabTrigger>
+          <TabTrigger name="profile" href="/profile" asChild>
+            <CustomTabButton icon={"person"} isExpanded={isExpanded} index={1}>
+              Profile
+            </CustomTabButton>
+          </TabTrigger>
+          <TabTrigger name="ticket" href="/ticket" asChild>
+            <CustomTabButton icon={"ticket"} isExpanded={isExpanded} index={0}>
+              Ticket
+            </CustomTabButton>
+          </TabTrigger>
+          <ToggleMenuButton
+            onPress={toggleExpandHandler}
+            isExpanded={isExpanded}
+          />
+        </TabList>
+      </Tabs>
+    </TouchableWithoutFeedback>
   );
 }
 
