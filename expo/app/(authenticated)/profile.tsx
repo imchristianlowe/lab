@@ -7,6 +7,7 @@ import { ThemedText } from "@/components/ThemedText";
 import { useForm } from "react-hook-form";
 import { TextInputWrapper } from "@/components/form/TextInputWrapper";
 import { SingleSelectWrapper } from "@/components/form/SingleSelectWrapper";
+import { Link } from "expo-router";
 
 export default function Index() {
   const { signOut } = useSession();
@@ -36,36 +37,7 @@ export default function Index() {
     <ThemedView
       style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
     >
-      <ThemedText>Submit a Ticket</ThemedText>
-      <ThemedText>{process.env.EXPO_PUBLIC_API_URL}</ThemedText>
-      <SingleSelectWrapper control={control} choices={choices} name={"label"} />
-      <TextInputWrapper
-        name={"title"}
-        control={control}
-        placeholder={"Summary"}
-      />
-      <TextInputWrapper
-        name={"body"}
-        control={control}
-        placeholder={"Longer Description"}
-        blurOnSubmit={true}
-        multiline
-        numberOfLines={4}
-        returnKeyType={"done"}
-      />
-      <Button
-        title={"Submit"}
-        type={"submit"}
-        onPress={handleSubmit(onSubmit)}
-      />
-      <ThemedText
-        onPress={() => {
-          // The `app/(app)/_layout.tsx` will redirect to the sign-in screen.
-          signOut();
-        }}
-      >
-        Sign Out
-      </ThemedText>
+      <ThemedText>Profile Page</ThemedText>
     </ThemedView>
   );
 }
