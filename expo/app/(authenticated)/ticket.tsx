@@ -12,6 +12,7 @@ import { TextInputWrapper } from "@/components/form/TextInputWrapper";
 import { SingleSelectWrapper } from "@/components/form/SingleSelectWrapper";
 import { ThemedSafeAreaView } from "@/components/ThemedSafeAreaView";
 import { useState } from "react";
+import { ThemedView } from "@/components/ThemedView";
 
 export default function Ticket() {
   const axios = useAppAxios();
@@ -43,7 +44,7 @@ export default function Ticket() {
         setIsDropDownOpen(false);
       }}
     >
-      <ThemedSafeAreaView style={{ flex: 1, margin: 10 }}>
+      <ThemedSafeAreaView style={{ flex: 1, padding: 25 }}>
         <ThemedText>Submit a Ticket</ThemedText>
         <SingleSelectWrapper
           control={control}
