@@ -1,12 +1,11 @@
-import { Button, Keyboard, StatusBar } from "react-native";
+import { Button } from "react-native";
 
-import { useSession } from "@/ctx";
 import useAppAxios from "@/hooks/useAppAxios";
-import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { useForm } from "react-hook-form";
 import { TextInputWrapper } from "@/components/form/TextInputWrapper";
 import { SingleSelectWrapper } from "@/components/form/SingleSelectWrapper";
+import { ThemedSafeAreaView } from "@/components/ThemedSafeAreaView";
 
 export default function Ticket() {
   const axios = useAppAxios();
@@ -31,9 +30,7 @@ export default function Ticket() {
   ];
 
   return (
-    <ThemedView
-      style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-    >
+    <ThemedSafeAreaView style={{ flex: 1 }}>
       <ThemedText>Submit a Ticket</ThemedText>
       <SingleSelectWrapper control={control} choices={choices} name={"label"} />
       <TextInputWrapper
@@ -45,16 +42,18 @@ export default function Ticket() {
         name={"body"}
         control={control}
         placeholder={"Longer Description"}
-        blurOnSubmit={true}
-        multiline
+        // blurOnSubmit={true}
         numberOfLines={4}
+        multiline
+        maxLength={40}
         returnKeyType={"done"}
+        maxHeight={40}
       />
       <Button
         title={"Submit"}
         type={"submit"}
         onPress={handleSubmit(onSubmit)}
       />
-    </ThemedView>
+    </ThemedSafeAreaView>
   );
 }
