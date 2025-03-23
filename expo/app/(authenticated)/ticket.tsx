@@ -1,14 +1,22 @@
-import { Button } from "react-native";
+import {
+  Button,
+  TextInput,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 
 import useAppAxios from "@/hooks/useAppAxios";
 import { ThemedText } from "@/components/ThemedText";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { TextInputWrapper } from "@/components/form/TextInputWrapper";
 import { SingleSelectWrapper } from "@/components/form/SingleSelectWrapper";
 import { ThemedSafeAreaView } from "@/components/ThemedSafeAreaView";
+import { useState } from "react";
 
 export default function Ticket() {
   const axios = useAppAxios();
+
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
   const onSubmit = (data) => {
     axios
@@ -30,30 +38,53 @@ export default function Ticket() {
   ];
 
   return (
-    <ThemedSafeAreaView style={{ flex: 1 }}>
-      <ThemedText>Submit a Ticket</ThemedText>
-      <SingleSelectWrapper control={control} choices={choices} name={"label"} />
-      <TextInputWrapper
-        name={"title"}
-        control={control}
-        placeholder={"Summary"}
-      />
-      <TextInputWrapper
-        name={"body"}
-        control={control}
-        placeholder={"Longer Description"}
-        // blurOnSubmit={true}
-        numberOfLines={4}
-        multiline
-        maxLength={40}
-        returnKeyType={"done"}
-        maxHeight={40}
-      />
-      <Button
-        title={"Submit"}
-        type={"submit"}
-        onPress={handleSubmit(onSubmit)}
-      />
-    </ThemedSafeAreaView>
+    <TouchableWithoutFeedback
+      onPress={() => {
+        setIsDropDownOpen(false);
+      }}
+    >
+      <ThemedSafeAreaView style={{ flex: 1, margin: 10 }}>
+        <ThemedText>Submit a Ticket</ThemedText>
+        <SingleSelectWrapper
+          control={control}
+          choices={choices}
+          name={"label"}
+          open={isDropDownOpen}
+          setOpen={setIsDropDownOpen}
+        />
+        <TextInputWrapper
+          name={"title"}
+          control={control}
+          placeholder={"Summary"}
+          style={{ borderWidth: 1, borderColor: "black", padding: 10 }}
+        />
+        <View
+          style={{
+            height: 100,
+            borderStyle: "solid",
+            borderWidth: 1,
+            borderColor: "black",
+            marginTop: 10,
+            marginBottom: 10,
+          }}
+        >
+          <TextInputWrapper
+            name={"body"}
+            control={control}
+            placeholder={"Longer Description"}
+            // blurOnSubmit={true}
+            numberOfLines={8}
+            multiline
+            maxLength={40}
+            returnKeyType={"done"}
+          />
+        </View>
+        <Button
+          title={"Submit"}
+          type={"submit"}
+          onPress={handleSubmit(onSubmit)}
+        />
+      </ThemedSafeAreaView>
+    </TouchableWithoutFeedback>
   );
 }
