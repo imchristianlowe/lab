@@ -19,6 +19,5 @@ export default function AppLayout() {
     return <Redirect href="/sign-in" />;
   }
 
-  // This layout can be deferred because it's not the root layout.
   return <Stack />;
 }
