@@ -17,18 +17,7 @@ export const TextInputWrapper = ({
     <TextInput
       value={field.value}
       onChangeText={field.onChange}
-      style={styles.input}
       {...textInputProps}
     />
   );
-};
-
-const styles = {
-  input: {
-    height: 40,
-    borderWidth: 1,
-    borderColor: "black",
-    padding: 10,
-    margin: 10,
-  },
 };
