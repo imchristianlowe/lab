@@ -3,7 +3,7 @@ from rest_framework import serializers
 
 class GithubIssueSerializer(serializers.Serializer):
     title: str = serializers.CharField(required=True)
-    body: str = serializers.CharField(required=False)
+    body: str = serializers.CharField(required=False, allow_blank=True)
     label: str = serializers.ChoiceField(
         choices=(
             ("bug", "bug"),
