@@ -1,17 +1,22 @@
-import { Platform, Text } from "react-native";
-import { Redirect, Stack, Tabs } from "expo-router";
+import { Platform, Text, StyleSheet } from "react-native";
+import { Redirect, Stack } from "expo-router";
+import { Tabs, TabList, TabTrigger, TabSlot } from "expo-router/ui";
 
 import { useSession } from "@/ctx";
 import { Colors } from "@/constants/Colors";
 import { HapticTab } from "@/components/HapticTab";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { IconSymbol } from "@/components/ui/IconSymbol";
-import React from "react";
+import React, { useState } from "react";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { CustomTabButton } from "@/components/ui/CustomTabButton";
+import { is } from "@babel/types";
+import { ToggleMenuButton } from "@/components/ui/ToggleMenuButton";
 
 export default function AppLayout() {
   const { session, isLoading } = useSession();
   const colorScheme = useColorScheme();
+  const [isExpanded, setIsExpanded] = useState(false);
 
   // You can keep the splash screen open, or render a loading screen like we do here.
   if (isLoading) {
@@ -26,49 +31,51 @@ export default function AppLayout() {
     return <Redirect href="/sign-in" />;
   }
 
+  function toggleExpandHandler() {
+    setIsExpanded(!isExpanded);
+  }
+
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: "absolute",
-          },
-          default: {},
-        }),
-      }}
-    >
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: "Home",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: "Profile",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="person.fill" color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="ticket"
-        options={{
-          title: "Ticket",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="ticket.fill" color={color} />
-          ),
-        }}
-      />
+    <Tabs>
+      <TabSlot />
+      <TabList style={styles.tabList}>
+        <TabTrigger name="home" href="/" asChild>
+          <CustomTabButton icon={"home"} isExpanded={isExpanded} index={2}>
+            Home
+          </CustomTabButton>
+        </TabTrigger>
+        <TabTrigger name="profile" href="/profile" asChild>
+          <CustomTabButton icon={"person"} isExpanded={isExpanded} index={1}>
+            Profile
+          </CustomTabButton>
+        </TabTrigger>
+        <TabTrigger name="ticket" href="/ticket" asChild>
+          <CustomTabButton icon={"ticket"} isExpanded={isExpanded} index={0}>
+            Ticket
+          </CustomTabButton>
+        </TabTrigger>
+        <ToggleMenuButton
+          onPress={toggleExpandHandler}
+          isExpanded={isExpanded}
+        />
+      </TabList>
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  tabList: {
+    position: "absolute",
+    bottom: 32,
+    right: 32,
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
+  tabTrigger: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: "blue",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
