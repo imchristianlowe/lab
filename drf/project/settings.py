@@ -189,13 +189,6 @@ LOGGING = {
         "null": {
             "class": "logging.NullHandler",
         },
-        "file": {
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": "/var/log/app/app.log",
-            "formatter": "json",
-            "backupCount": 5,
-            "maxBytes": 1024 * 1024 * 10,
-        },
     },
     "root": {
         "handlers": ["null"],
@@ -210,7 +203,7 @@ LOGGING = {
             "propagate": False,
         },
         "drf_extras": {
-            "handlers": ["file"],
+            "handlers": ["simple_console"],
             "level": "DEBUG",
             "propagate": False,
         },
