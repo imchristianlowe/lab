@@ -1,18 +1,12 @@
-import {
-  Button,
-  TextInput,
-  TouchableWithoutFeedback,
-  View,
-} from "react-native";
+import { Button, TouchableWithoutFeedback, View } from "react-native";
 
 import useAppAxios from "@/hooks/useAppAxios";
 import { ThemedText } from "@/components/ThemedText";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { TextInputWrapper } from "@/components/form/TextInputWrapper";
 import { SingleSelectWrapper } from "@/components/form/SingleSelectWrapper";
 import { ThemedSafeAreaView } from "@/components/ThemedSafeAreaView";
 import { useState } from "react";
-import { ThemedView } from "@/components/ThemedView";
 
 export default function Ticket() {
   const axios = useAppAxios();
