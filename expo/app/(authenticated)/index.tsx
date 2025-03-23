@@ -11,53 +11,11 @@ import { SingleSelectWrapper } from "@/components/form/SingleSelectWrapper";
 export default function Index() {
   const { signOut } = useSession();
 
-  const axios = useAppAxios();
-
-  const onSubmit = (data) => {
-    axios
-      .post(`${process.env.EXPO_PUBLIC_API_URL}/api/new_issue/`, data)
-      .then((response) => {
-        alert("Ticket created");
-      })
-      .catch((error) => {
-        alert(JSON.stringify(error.response.data));
-      });
-  };
-
-  const { control, handleSubmit } = useForm();
-
-  const choices = [
-    { label: "Feature Request", value: "enhancement" },
-    { label: "UI Improvement", value: "ui improvement" },
-    { label: "Bug", value: "bug" },
-  ];
-
   return (
     <ThemedView
       style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
     >
-      <ThemedText>Submit a Ticket</ThemedText>
-      <ThemedText>{process.env.EXPO_PUBLIC_API_URL}</ThemedText>
-      <SingleSelectWrapper control={control} choices={choices} name={"label"} />
-      <TextInputWrapper
-        name={"title"}
-        control={control}
-        placeholder={"Summary"}
-      />
-      <TextInputWrapper
-        name={"body"}
-        control={control}
-        placeholder={"Longer Description"}
-        blurOnSubmit={true}
-        multiline
-        numberOfLines={4}
-        returnKeyType={"done"}
-      />
-      <Button
-        title={"Submit"}
-        type={"submit"}
-        onPress={handleSubmit(onSubmit)}
-      />
+      <ThemedText>Home Page</ThemedText>
       <ThemedText
         onPress={() => {
           // The `app/(app)/_layout.tsx` will redirect to the sign-in screen.
