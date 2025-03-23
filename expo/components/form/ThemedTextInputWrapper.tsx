@@ -20,13 +20,17 @@ export const ThemedTextInputWrapper = ({
   ...rest
 }: ThemedTextInputProps) => {
   const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
+  const backgroundColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    "inputBackground",
+  );
   const { field } = useController({ control, defaultValue: "", name });
 
   return (
     <TextInput
       value={field.value}
       onChangeText={field.onChange}
-      style={[{ color }, style]}
+      style={[{ color, backgroundColor }, style]}
       {...rest}
     />
   );
