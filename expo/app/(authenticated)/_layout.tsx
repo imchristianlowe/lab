@@ -6,6 +6,7 @@ import { useSession } from "@/ctx";
 import React, { useState } from "react";
 import { CustomTabButton } from "@/components/ui/CustomTabButton";
 import { ToggleMenuButton } from "@/components/ui/ToggleMenuButton";
+import { CustomTabList } from "@/components/ui/CustomTabList";
 
 export default function AppLayout() {
   const { session, isLoading } = useSession();
@@ -36,26 +37,11 @@ export default function AppLayout() {
     >
       <Tabs>
         <TabSlot />
+        <CustomTabList />
         <TabList style={styles.tabList}>
-          <TabTrigger name="home" href="/" asChild>
-            <CustomTabButton icon={"home"} isExpanded={isExpanded} index={2}>
-              Home
-            </CustomTabButton>
-          </TabTrigger>
-          <TabTrigger name="profile" href="/profile" asChild>
-            <CustomTabButton icon={"person"} isExpanded={isExpanded} index={1}>
-              Profile
-            </CustomTabButton>
-          </TabTrigger>
-          <TabTrigger name="ticket" href="/ticket" asChild>
-            <CustomTabButton icon={"ticket"} isExpanded={isExpanded} index={0}>
-              Ticket
-            </CustomTabButton>
-          </TabTrigger>
-          <ToggleMenuButton
-            onPress={toggleExpandHandler}
-            isExpanded={isExpanded}
-          />
+          <TabTrigger name={"home"} href={"/"} />
+          <TabTrigger name={"profile"} href={"/profile"} />
+          <TabTrigger name={"ticket"} href={"/ticket"} />
         </TabList>
       </Tabs>
     </TouchableWithoutFeedback>
@@ -64,17 +50,6 @@ export default function AppLayout() {
 
 const styles = StyleSheet.create({
   tabList: {
-    position: "absolute",
-    bottom: 32,
-    right: 32,
-    alignItems: "center",
-    justifyContent: "flex-end",
-  },
-  tabTrigger: {
-    flex: 1,
-    borderWidth: 1,
-    borderColor: "blue",
-    alignItems: "center",
-    justifyContent: "center",
+    display: "none",
   },
 });
