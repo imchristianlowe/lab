@@ -1,4 +1,4 @@
-import { Button, TouchableWithoutFeedback, View } from "react-native";
+import { Button, Keyboard, TouchableWithoutFeedback, View } from "react-native";
 
 import useAppAxios from "@/hooks/useAppAxios";
 import { ThemedText } from "@/components/ThemedText";
@@ -38,6 +38,7 @@ export default function Ticket() {
     <TouchableWithoutFeedback
       onPress={() => {
         setIsDropDownOpen(false);
+        Keyboard.dismiss();
       }}
     >
       <ThemedSafeAreaView style={{ flex: 1, padding: 25 }}>
