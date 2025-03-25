@@ -42,6 +42,7 @@ export default function AppLayout() {
           <TabTrigger name={"home"} href={"/"} />
           <TabTrigger name={"profile"} href={"/profile"} />
           <TabTrigger name={"ticket"} href={"/ticket"} />
+          <TabTrigger name={"subscriptions"} href={"/subscriptions"} />
         </TabList>
       </Tabs>
     </TouchableWithoutFeedback>
