@@ -73,7 +73,7 @@ CustomTabButton.displayName = "CustomTabButton";
 
 const styles = StyleSheet.create({
   button: {
-    width: 65,
+    width: 100,
     height: 65,
     justifyContent: "center",
     alignItems: "center",

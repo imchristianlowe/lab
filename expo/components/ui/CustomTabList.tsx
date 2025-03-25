@@ -14,13 +14,19 @@ export function CustomTabList() {
   return (
     <View style={styles.tabList}>
       <TabTrigger name="home" href="/" asChild>
-        <CustomTabButton icon={"home"} isExpanded={isExpanded} index={2}>
+        <CustomTabButton icon={"home"} isExpanded={isExpanded} index={3}>
           Home
         </CustomTabButton>
       </TabTrigger>
       <TabTrigger name="profile" href="/profile" asChild>
-        <CustomTabButton icon={"person"} isExpanded={isExpanded} index={1}>
+        <CustomTabButton icon={"person"} isExpanded={isExpanded} index={2}>
           Profile
+        </CustomTabButton>
+      </TabTrigger>
+
+      <TabTrigger name="subscriptions" href="/subscriptions" asChild>
+        <CustomTabButton icon={"cash"} isExpanded={isExpanded} index={1}>
+          Membership
         </CustomTabButton>
       </TabTrigger>
       <TabTrigger name="ticket" href="/ticket" asChild>
