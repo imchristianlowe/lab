@@ -1,7 +1,7 @@
 import { router } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 
-import { useSession } from "../ctx";
+import { useSession } from "@/providers/AuthProvider";
 import * as AppleAuthentication from "expo-apple-authentication";
 
 export default function SignIn() {

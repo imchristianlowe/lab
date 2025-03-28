@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { SessionProvider } from "@/ctx";
+import { SessionProvider } from "@/providers/AuthProvider";
 import { Slot } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { RevenueCatProvider } from "@/providers/RevenueCatProvider";
