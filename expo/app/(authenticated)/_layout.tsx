@@ -2,7 +2,7 @@ import { Text, StyleSheet, TouchableWithoutFeedback } from "react-native";
 import { Redirect } from "expo-router";
 import { Tabs, TabList, TabTrigger, TabSlot } from "expo-router/ui";
 
-import { useSession } from "@/ctx";
+import { useSession } from "@/providers/AuthProvider";
 import React, { useState } from "react";
 import { CustomTabButton } from "@/components/ui/CustomTabButton";
 import { ToggleMenuButton } from "@/components/ui/ToggleMenuButton";

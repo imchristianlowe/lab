@@ -1,4 +1,4 @@
-import { useSession } from "@/ctx";
+import { useSession } from "@/providers/AuthProvider";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 

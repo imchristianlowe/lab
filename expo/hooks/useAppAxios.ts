@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { useSession } from "@/ctx";
+import { useSession } from "@/providers/AuthProvider";
 
 export default function useAppAxios(): AxiosInstance {
   const { session } = useSession();
