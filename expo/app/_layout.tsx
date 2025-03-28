@@ -12,6 +12,7 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 import { SessionProvider } from "@/ctx";
 import { Slot } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { RevenueCatProvider } from "@/providers/RevenueCatProvider";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -35,9 +36,11 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <SessionProvider>
-          <Slot />
-        </SessionProvider>
+        <RevenueCatProvider>
+          <SessionProvider>
+            <Slot />
+          </SessionProvider>
+        </RevenueCatProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );
