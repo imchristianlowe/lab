@@ -4,7 +4,9 @@ import { useSession } from "@/providers/AuthProvider";
 export default function useAppAxios(): AxiosInstance {
   const { session } = useSession();
 
-  let instance: AxiosInstance = axios.create();
+  let instance: AxiosInstance = axios.create({
+    baseURL: process.env.EXPO_PUBLIC_API_URL,
+  });
 
   instance.interceptors.request.use(
     function (config) {

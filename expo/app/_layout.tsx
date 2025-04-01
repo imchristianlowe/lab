@@ -9,8 +9,8 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { SessionProvider } from "@/providers/AuthProvider";
-import { Slot } from "expo-router";
+import { SessionProvider, useSession } from "@/providers/AuthProvider";
+import { Redirect, Slot } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { RevenueCatProvider } from "@/providers/RevenueCatProvider";
 
@@ -19,9 +19,14 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const { session } = useSession();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
+
+  if (session) {
+    return <Redirect href={"/"} />;
+  }
 
   useEffect(() => {
     if (loaded) {
