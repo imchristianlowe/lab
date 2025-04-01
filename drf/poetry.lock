@@ -296,6 +296,18 @@ test = ["certifi (>=2024)", "cryptography-vectors (==44.0.1)", "pretend (>=0.7)"
 test-randomorder = ["pytest-randomly"]
 
 [[package]]
+name = "defusedxml"
+version = "0.7.1"
+description = "XML bomb protection for Python stdlib modules"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
+groups = ["main"]
+files = [
+    {file = "defusedxml-0.7.1-py2.py3-none-any.whl", hash = "sha256:a352e7e428770286cc899e2542b6cdaedb2b4953ff269a210103ec58f6198a61"},
+    {file = "defusedxml-0.7.1.tar.gz", hash = "sha256:1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69"},
+]
+
+[[package]]
 name = "django"
 version = "5.1.6"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
@@ -376,6 +388,52 @@ files = [
 
 [package.dependencies]
 django = ">=4.2"
+
+[[package]]
+name = "djangorestframework-simplejwt"
+version = "5.4.0"
+description = "A minimal JSON Web Token authentication plugin for Django REST Framework"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "djangorestframework_simplejwt-5.4.0-py3-none-any.whl", hash = "sha256:7aec953db9ed4163430c16d086eecb0f028f814ce6bba62b06c25919261e9077"},
+    {file = "djangorestframework_simplejwt-5.4.0.tar.gz", hash = "sha256:cccecce1a0e1a4a240fae80da73e5fc23055bababb8b67de88fa47cd36822320"},
+]
+
+[package.dependencies]
+django = ">=4.2"
+djangorestframework = ">=3.14"
+pyjwt = ">=1.7.1,<3"
+
+[package.extras]
+crypto = ["cryptography (>=3.3.1)"]
+dev = ["Sphinx (>=1.6.5,<2)", "cryptography", "flake8", "freezegun", "ipython", "isort", "pep8", "pytest", "pytest-cov", "pytest-django", "pytest-watch", "pytest-xdist", "python-jose (==3.3.0)", "sphinx_rtd_theme (>=0.1.9)", "tox", "twine", "wheel"]
+doc = ["Sphinx (>=1.6.5,<2)", "sphinx_rtd_theme (>=0.1.9)"]
+lint = ["flake8", "isort", "pep8"]
+python-jose = ["python-jose (==3.3.0)"]
+test = ["cryptography", "freezegun", "pytest", "pytest-cov", "pytest-django", "pytest-xdist", "tox"]
+
+[[package]]
+name = "djoser"
+version = "2.3.1"
+description = "REST implementation of Django authentication system."
+optional = false
+python-versions = "<4.0,>=3.8"
+groups = ["main"]
+files = [
+    {file = "djoser-2.3.1-py3-none-any.whl", hash = "sha256:386f337b9e05cb82354525fe2b6fec19fb1743e93e53b5b4b9dfaffccc38789f"},
+    {file = "djoser-2.3.1.tar.gz", hash = "sha256:4e7e2716b5b961f1289b5e49b2216ba5c18eb2a3b4b597dd6430638716ff5107"},
+]
+
+[package.dependencies]
+django = ">=3.0.0"
+djangorestframework-simplejwt = ">=5.0,<6.0"
+social-auth-app-django = ">=5.0.0,<6.0.0"
+
+[package.extras]
+djet = ["djet (>=0.3.0,<0.4.0)"]
+webauthn = ["webauthn (<1.0)"]
 
 [[package]]
 name = "ghp-import"
@@ -574,6 +632,23 @@ files = [
 mergedeep = ">=1.3.4"
 platformdirs = ">=2.2.0"
 pyyaml = ">=5.1"
+
+[[package]]
+name = "oauthlib"
+version = "3.2.2"
+description = "A generic, spec-compliant, thorough implementation of the OAuth request-signing logic"
+optional = false
+python-versions = ">=3.6"
+groups = ["main"]
+files = [
+    {file = "oauthlib-3.2.2-py3-none-any.whl", hash = "sha256:8139f29aac13e25d502680e9e19963e83f16838d48a0d71c287fe40e7067fbca"},
+    {file = "oauthlib-3.2.2.tar.gz", hash = "sha256:9859c40929662bec5d64f34d01c99e093149682a3f38915dc0655d5a633dd918"},
+]
+
+[package.extras]
+rsa = ["cryptography (>=3.0.0)"]
+signals = ["blinker (>=1.4.0)"]
+signedtoken = ["cryptography (>=3.0.0)", "pyjwt (>=2.0.0,<3)"]
 
 [[package]]
 name = "packaging"
@@ -797,6 +872,25 @@ files = [
 dev = ["backports.zoneinfo", "black", "build", "freezegun", "mdx_truly_sane_lists", "mike", "mkdocs", "mkdocs-awesome-pages-plugin", "mkdocs-gen-files", "mkdocs-literate-nav", "mkdocs-material (>=8.5)", "mkdocstrings[python]", "msgspec", "msgspec-python313-pre", "mypy", "orjson", "pylint", "pytest", "tzdata", "validate-pyproject[all]"]
 
 [[package]]
+name = "python3-openid"
+version = "3.2.0"
+description = "OpenID support for modern servers and consumers."
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "python3-openid-3.2.0.tar.gz", hash = "sha256:33fbf6928f401e0b790151ed2b5290b02545e8775f982485205a066f874aaeaf"},
+    {file = "python3_openid-3.2.0-py3-none-any.whl", hash = "sha256:6626f771e0417486701e0b4daff762e7212e820ca5b29fcc0d05f6f8736dfa6b"},
+]
+
+[package.dependencies]
+defusedxml = "*"
+
+[package.extras]
+mysql = ["mysql-connector-python"]
+postgresql = ["psycopg2"]
+
+[[package]]
 name = "pyyaml"
 version = "6.0.2"
 description = "YAML parser and emitter for Python"
@@ -897,6 +991,25 @@ socks = ["PySocks (>=1.5.6,!=1.5.7)"]
 use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
+name = "requests-oauthlib"
+version = "2.0.0"
+description = "OAuthlib authentication support for Requests."
+optional = false
+python-versions = ">=3.4"
+groups = ["main"]
+files = [
+    {file = "requests-oauthlib-2.0.0.tar.gz", hash = "sha256:b3dffaebd884d8cd778494369603a9e7b58d29111bf6b41bdc2dcd87203af4e9"},
+    {file = "requests_oauthlib-2.0.0-py2.py3-none-any.whl", hash = "sha256:7dd8a5c40426b779b0868c404bdef9768deccf22749cde15852df527e6269b36"},
+]
+
+[package.dependencies]
+oauthlib = ">=3.0.0"
+requests = ">=2.0.0"
+
+[package.extras]
+rsa = ["oauthlib[signedtoken] (>=3.0.0)"]
+
+[[package]]
 name = "six"
 version = "1.17.0"
 description = "Python 2 and 3 compatibility utilities"
@@ -907,6 +1020,55 @@ files = [
     {file = "six-1.17.0-py2.py3-none-any.whl", hash = "sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274"},
     {file = "six-1.17.0.tar.gz", hash = "sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81"},
 ]
+
+[[package]]
+name = "social-auth-app-django"
+version = "5.4.3"
+description = "Python Social Authentication, Django integration."
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "social_auth_app_django-5.4.3-py3-none-any.whl", hash = "sha256:db70b972faeb10ee1ec83d0dc7dbd0558d5f5830417bba317b712b10ff58d031"},
+    {file = "social_auth_app_django-5.4.3.tar.gz", hash = "sha256:d1f4286d5ca1e512c9b2f686e7ecb2a0128148f1a33d853b69dc07b58508362e"},
+]
+
+[package.dependencies]
+Django = ">=3.2"
+social-auth-core = ">=4.4,<5.0"
+
+[package.extras]
+dev = ["coverage (>=3.6)"]
+
+[[package]]
+name = "social-auth-core"
+version = "4.5.6"
+description = "Python social authentication made simple."
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "social_auth_core-4.5.6-py3-none-any.whl", hash = "sha256:43114bbc50f99789f7aadfd4943c2e15aee5e2f8c8612ad67fc4115b70b46ee1"},
+    {file = "social_auth_core-4.5.6.tar.gz", hash = "sha256:14753d4cf870b820918729ce8a2dfe51f332075528fb13bed908701a8486da80"},
+]
+
+[package.dependencies]
+cryptography = ">=1.4"
+defusedxml = ">=0.5.0"
+oauthlib = ">=1.0.3"
+PyJWT = ">=2.7.0"
+python3-openid = ">=3.0.10"
+requests = ">=2.9.1"
+requests-oauthlib = ">=0.6.1"
+
+[package.extras]
+all = ["social-auth-core[azuread]", "social-auth-core[google-onetap]", "social-auth-core[saml]", "social-auth-core[shopify]"]
+allpy3 = ["social-auth-core[all]"]
+azuread = ["cryptography (>=2.1.1)"]
+dev = ["coverage (>=3.6)", "flake8 (>=5.0.4)", "httpretty (>=1.1.0,<1.2.0)", "pyright (>=1.1.391)", "pytest (>=4.5)", "pytest-cov (>=2.7.1)", "urllib3 (>=2.2.0,<2.3.0)"]
+google-onetap = ["google-auth (>=2.38.0,<2.39.0)"]
+saml = ["lxml (>=5.2.1,<5.3.0)", "python3-saml (>=1.5.0)"]
+shopify = ["ShopifyAPI"]
 
 [[package]]
 name = "sqlparse"
@@ -1014,4 +1176,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.10"
-content-hash = "0b757611b985014003aaa4d1d0283d43c18943fe0d83dc308034579dec9cd274"
+content-hash = "166501ad0772a6978c5b4b0654508e999d3bc079d765ec12dffeb599fd5e38cf"

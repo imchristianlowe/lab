@@ -43,11 +43,12 @@ INSTALLED_APPS = [
     "apple_users",
     "django_prometheus",
     "corsheaders",
+    "djoser",
 ]
 
 MIDDLEWARE = [
-    "drf_extras.middleware.RequestLogMiddleware",
     "corsheaders.middleware.CorsMiddleware",
+    "drf_extras.middleware.RequestLogMiddleware",
     "django_prometheus.middleware.PrometheusBeforeMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -218,6 +219,7 @@ LOGGING = {
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+
 with open("./project/app-key.pem", "rb") as pem_file:
     signing_key = pem_file.read()
 
@@ -228,3 +230,5 @@ GITHUB_APP = {
     "REPO_OWNER": os.environ.get("GITHUB_REPO_OWNER"),
     "REPO": os.environ.get("GITHUB_REPO"),
 }
+
+DJOSER = {"PERMISSIONS": {"user_create": ["rest_framework.permissions.AllowAny"]}}
