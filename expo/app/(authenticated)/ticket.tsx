@@ -17,7 +17,7 @@ export default function Ticket() {
 
   const onSubmit = (data) => {
     axios
-      .post(`${process.env.EXPO_PUBLIC_API_URL}/api/new_issue/`, data)
+      .post(`/api/new_issue/`, data)
       .then((response) => {
         alert("Ticket created");
       })

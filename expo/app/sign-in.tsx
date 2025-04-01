@@ -12,6 +12,12 @@ export default function SignIn() {
   const { signIn } = useSession();
   const { control, handleSubmit } = useForm();
   const router = useRouter();
+
+  const userSignIn = (data) => {
+    signIn("this");
+    router.navigate("/");
+  };
+
   return (
     <ThemedView
       style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
@@ -30,7 +36,7 @@ export default function SignIn() {
         />
       </View>
       <View>
-        <Button title={"Login"} />
+        <Button title={"Login"} onPress={handleSubmit(userSignIn)} />
         <Button
           title={"Sign Up"}
           onPress={() => {
@@ -54,7 +60,6 @@ export default function SignIn() {
                 ],
               });
               signIn(JSON.stringify(credential));
-              console.log(credential);
               router.replace("/");
               // signed in
             } catch (e: any) {
