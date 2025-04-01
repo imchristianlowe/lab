@@ -16,6 +16,9 @@ services:
         required: false
     networks:
       - clowe-net
+    depends_on:
+      - db
+
   db:
     container_name: clowe-drf-db
     image: postgres:17.4-alpine3.21

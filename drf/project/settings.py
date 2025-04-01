@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "rest_framework.authtoken",
     "apple_users",
     "django_prometheus",
     "corsheaders",
@@ -149,7 +150,8 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "apple_users.authentication.AppleIdTokenAuthentication"
+        "apple_users.authentication.AppleIdTokenAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
     ],
 }
 

@@ -1,7 +1,7 @@
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import useAppAxios from "@/hooks/useAppAxios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Profile() {
   const axios = useAppAxios();
@@ -15,7 +15,9 @@ export default function Profile() {
       });
   };
 
-  userInfo();
+  useEffect(() => {
+    userInfo();
+  }, []);
 
   return (
     <ThemedView
