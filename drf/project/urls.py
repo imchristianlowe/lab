@@ -25,6 +25,6 @@ urlpatterns = [
     path("api-auth/", include("rest_framework.urls")),
     path("api/", include("django_prometheus.urls")),
     path("api/", include("drf_github.urls")),
-    path("api/", include("drf_user_profile.urls")),
+    path("api/", include("djoser.urls")),
     path("validate_apple_id_token/", views.validate_id_token),
 ]
