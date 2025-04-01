@@ -1,15 +1,30 @@
 // Provide RevenueCat functions to our app
 import { createContext, useContext, useEffect, useState } from "react";
-import Purchases, {
+import {
   CustomerInfo,
   LOG_LEVEL,
   PurchasesPackage,
 } from "react-native-purchases";
 import { Platform } from "react-native";
+import { PurchasesError } from "@revenuecat/purchases-js";
+
+// Import React Native Purchases for native platforms
+let Purchases;
+if (Platform.OS !== "web") {
+  Purchases = require("react-native-purchases").default;
+}
+
+// For web platform, we'll use the RevenueCat JavaScript SDK
+let RevenueCatWeb;
+if (Platform.OS === "web") {
+  // You'll need to install and import the RevenueCat JS SDK
+  Purchases = require("@revenuecat/purchases-js").Purchases;
+}
 
 const APIKeys = {
   apple: "appl_utMqkhIMipWFvYBgpmexWwQEPSp",
   google: "",
+  web: "rcb_hOzlwgowTTseEtzEcbyhKwVnFmLT",
 };
 
 interface RevenueCatProps {
@@ -45,18 +60,20 @@ export const RevenueCatProvider = ({ children }: any) => {
     const init = async () => {
       if (Platform.OS === "android") {
         await Purchases.configure({ apiKey: APIKeys.google });
-      } else {
+      } else if (Platform.OS === "ios") {
         await Purchases.configure({ apiKey: APIKeys.apple });
+      } else {
+        await Purchases.configure(APIKeys.web, "something");
       }
       setIsReady(true);
 
       // Use more logging during debug if want!
       Purchases.setLogLevel(LOG_LEVEL.DEBUG);
 
-      // Listen for customer updates
-      Purchases.addCustomerInfoUpdateListener(async (info) => {
-        updateCustomerInformation(info);
-      });
+      // // Listen for customer updates
+      // Purchases.addCustomerInfoUpdateListener(async (info) => {
+      //   updateCustomerInformation(info);
+      // });
 
       // Load all offerings and the user object with entitlements
       await loadOfferings();
@@ -66,9 +83,15 @@ export const RevenueCatProvider = ({ children }: any) => {
 
   // Load all offerings a user can (currently) purchase
   const loadOfferings = async () => {
-    const offerings = await Purchases.getOfferings();
-    if (offerings.current) {
-      setPackages(offerings.current.availablePackages);
+    console.log("loading products");
+    if (Platform.OS !== "web") {
+      const offerings = await Purchases.getOfferings();
+      if (offerings.current) {
+        setPackages(offerings.current.availablePackages);
+      }
+    } else {
+      const products = await Purchases.getSharedInstance().getOfferings();
+      console.log("products", products);
     }
   };
 

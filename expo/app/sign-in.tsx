@@ -34,6 +34,7 @@ export default function SignIn() {
           }
         }}
       />
+      <Text>Here</Text>
     </View>
   );
 }
