@@ -1,4 +1,9 @@
-import { Text, StyleSheet, TouchableWithoutFeedback } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Platform,
+} from "react-native";
 import { Redirect } from "expo-router";
 import { Tabs, TabList, TabTrigger, TabSlot } from "expo-router/ui";
 
@@ -20,9 +25,13 @@ export default function AppLayout() {
   // Only require authentication within the (app) group's layout as users
   // need to be able to access the (auth) group and sign in again.
   if (!session) {
-    // On web, static rendering will stop here as the user is not authenticated
-    // in the headless Node process that the pages are rendered in.
-    return <Redirect href="/sign-in" />;
+    if (Platform.OS !== "web") {
+      // On web, static rendering will stop here as the user is not authenticated
+      // in the headless Node process that the pages are rendered in.
+      return <Redirect href="/sign-in" />;
+    } else {
+      return <Redirect href={"/"} />;
+    }
   }
 
   function toggleExpandHandler() {
