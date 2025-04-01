@@ -1,13 +1,17 @@
 import { router } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 
 import { useSession } from "@/providers/AuthProvider";
 import * as AppleAuthentication from "expo-apple-authentication";
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
 
 export default function SignIn() {
   const { signIn } = useSession();
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <ThemedView
+      style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+    >
       <AppleAuthentication.AppleAuthenticationButton
         buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
         buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
@@ -34,8 +38,8 @@ export default function SignIn() {
           }
         }}
       />
-      <Text>Here</Text>
-    </View>
+      <ThemedText>Some random text</ThemedText>
+    </ThemedView>
   );
 }
 
