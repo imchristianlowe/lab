@@ -7,6 +7,7 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedTextInputWrapper } from "@/components/form/ThemedTextInputWrapper";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 export default function SignIn() {
   const { signIn } = useSession();
@@ -14,8 +15,15 @@ export default function SignIn() {
   const router = useRouter();
 
   const userSignIn = (data) => {
-    signIn("this");
-    router.navigate("/");
+    axios
+      .post(`${process.env.EXPO_PUBLIC_API_URL}/api/token/login/`, data)
+      .then((response) => {
+        signIn(response.data.auth_token);
+        router.navigate("/");
+      })
+      .catch((error) => {
+        alert(error.data);
+      });
   };
 
   return (

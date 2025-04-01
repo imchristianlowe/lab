@@ -11,8 +11,12 @@ export default function useAppAxios(): AxiosInstance {
   instance.interceptors.request.use(
     function (config) {
       if (session) {
-        const sessionInfo = JSON.parse(session);
-        config.headers["X-Apple-Id-Token"] = sessionInfo["identityToken"];
+        try {
+          const sessionInfo = JSON.parse(session);
+          config.headers["X-Apple-Id-Token"] = sessionInfo["identityToken"];
+        } catch {
+          config.headers["Authorization"] = `Token ${session}`;
+        }
       }
       return config;
     },
