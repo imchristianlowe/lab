@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { Button, StyleSheet, View } from "react-native";
+import { Button, Platform, StyleSheet, View } from "react-native";
 
 import { ThemedView } from "@/components/ThemedView";
 import { ThemedTextInputWrapper } from "@/components/form/ThemedTextInputWrapper";
@@ -27,29 +27,27 @@ export default function SignUp() {
     <ThemedView
       style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
     >
-      <View>
-        <View width={"75%"}>
-          <ThemedTextInputWrapper
-            name={"username"}
-            control={control}
-            placeholder={"Username"}
-            style={styles.input}
-          />
-          <ThemedTextInputWrapper
-            name={"password"}
-            control={control}
-            placeholder={"Password"}
-            secureTextEntry={true}
-            style={styles.input}
-          />
-          <ThemedTextInputWrapper
-            name={"re_password"}
-            control={control}
-            placeholder={"Password Again"}
-            secureTextEntry={true}
-            style={styles.input}
-          />
-        </View>
+      <View style={styles.rootContainer}>
+        <ThemedTextInputWrapper
+          name={"username"}
+          control={control}
+          placeholder={"Username"}
+          style={styles.input}
+        />
+        <ThemedTextInputWrapper
+          name={"password"}
+          control={control}
+          placeholder={"Password"}
+          secureTextEntry={true}
+          style={styles.input}
+        />
+        <ThemedTextInputWrapper
+          name={"re_password"}
+          control={control}
+          placeholder={"Password Again"}
+          secureTextEntry={true}
+          style={styles.input}
+        />
         <View style={styles.buttonContainer}>
           <Button title={"Sign Up"} onPress={handleSubmit(signUp)} />
           <Button
@@ -63,11 +61,6 @@ export default function SignUp() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   button: {
     width: 200,
     height: 44,
@@ -83,5 +76,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-evenly",
+  },
+  rootContainer: {
+    width: Platform.OS === "web" ? "20%" : "75%",
   },
 });
