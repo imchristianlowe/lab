@@ -2,14 +2,10 @@ import { ThemedView } from "@/components/ThemedView";
 import { ThemedText } from "@/components/ThemedText";
 import { PurchasesPackage } from "react-native-purchases";
 import { useEffect, useState } from "react";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet, Platform } from "react-native";
 import { useRevenueCat } from "@/providers/RevenueCatProvider";
 
 export default function Subscriptions() {
-  const [currentOfferings, setCurrentOfferings] = useState<
-    PurchasesPackage[] | undefined
-  >(undefined);
-
   const { user, packages, purchasePackage, restorePermissions } =
     useRevenueCat();
 
@@ -26,24 +22,29 @@ export default function Subscriptions() {
     >
       <ThemedText>Subscriptions Page</ThemedText>
       {packages?.map((pack, index) => (
-        // <TouchableOpacity key={`pack-${index}`} style={{flexDirection: 'column', alignItems: 'flex-start', marginVertical: 6}}>
-        //   <ThemedText>{pack.product.title}</ThemedText>
-        //   <ThemedText>{pack.product.description}</ThemedText>
-        //   <ThemedText>{pack.product.priceString}</ThemedText>
-        // </TouchableOpacity>
         <TouchableOpacity
           key={pack.identifier}
           onPress={() => onPurchase(pack)}
           style={styles.button}
         >
           <ThemedView style={styles.text}>
-            <ThemedText>{pack.product.title}</ThemedText>
+            <ThemedText>
+              {Platform.OS === "web"
+                ? pack.webBillingProduct.title
+                : pack.product.title}
+            </ThemedText>
             <ThemedText style={styles.desc}>
-              {pack.product.description}
+              {Platform.OS === "web"
+                ? pack.webBillingProduct.description
+                : pack.product.description}
             </ThemedText>
           </ThemedView>
           <ThemedView style={styles.price}>
-            <ThemedText>{pack.product.priceString}</ThemedText>
+            <ThemedText>
+              {Platform.OS === "web"
+                ? pack.webBillingProduct.currentPrice.formattedPrice
+                : pack.product.priceString}
+            </ThemedText>
           </ThemedView>
         </TouchableOpacity>
       ))}
