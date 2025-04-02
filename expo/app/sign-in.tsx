@@ -30,7 +30,7 @@ export default function SignIn() {
     <ThemedView
       style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
     >
-      <View width={"75%"}>
+      <View style={styles.rootContainer}>
         <ThemedTextInputWrapper
           name={"username"}
           control={control}
@@ -89,11 +89,6 @@ export default function SignIn() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   button: {
     width: 200,
     height: 44,
@@ -109,5 +104,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-evenly",
+  },
+  rootContainer: {
+    width: Platform.OS === "web" ? "20%" : "75%",
   },
 });
