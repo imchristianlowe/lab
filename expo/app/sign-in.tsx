@@ -30,33 +30,37 @@ export default function SignIn() {
     <ThemedView
       style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
     >
-      <View width={10000}>
+      <View width={"75%"}>
         <ThemedTextInputWrapper
           name={"username"}
           control={control}
           placeholder={"Username"}
+          style={styles.input}
         />
         <ThemedTextInputWrapper
           name={"password"}
           control={control}
           placeholder={"Password"}
           secureTextEntry={true}
+          style={styles.input}
         />
-      </View>
-      <View>
-        <Button title={"Login"} onPress={handleSubmit(userSignIn)} />
-        <Button
-          title={"Sign Up"}
-          onPress={() => {
-            router.navigate("/sign-up");
-          }}
-        />
+        <View style={styles.buttonContainer}>
+          <Button title={"Login"} onPress={handleSubmit(userSignIn)} />
+          <Button
+            title={"Sign Up"}
+            onPress={() => {
+              router.navigate("/sign-up");
+            }}
+          />
+        </View>
       </View>
 
       {Platform.OS === "ios" && (
         <AppleAuthentication.AppleAuthenticationButton
           buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
-          buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
+          buttonStyle={
+            AppleAuthentication.AppleAuthenticationButtonStyle.WHITE_OUTLINE
+          }
           cornerRadius={5}
           style={styles.button}
           onPress={async () => {
@@ -93,5 +97,17 @@ const styles = StyleSheet.create({
   button: {
     width: 200,
     height: 44,
+  },
+  input: {
+    marginVertical: 5,
+    height: 40,
+    padding: 10,
+  },
+  buttonContainer: {
+    width: "auto",
+    marginTop: 5,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-evenly",
   },
 });
