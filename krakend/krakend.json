@@ -1,0 +1,42 @@
+{
+  "$schema": "https://www.krakend.io/schema/v3.json",
+  "version": 3,
+  "name": "Clowe API Gateway",
+  "port": "8001",
+  "host": "http://localhost",
+  "timeout": "3000ms",
+  "cache_ttl": "300s",
+  "endpoints": [
+    {
+      "@comment": "Django REST Framework",
+      "endpoint": "/drf/api/{path}/",
+      "backend": [
+        {
+          "host": ["http://clowe-drf:8000"],
+          "url_pattern": "/api/{path}/",
+          "encoding_path": "safepath",
+          "output_encoding": "json"
+        }
+      ]
+    },
+    {
+      "@comment": "Django REST Framework Health Check",
+      "endpoint": "/drf/health_check",
+      "backend": [
+        {
+          "host": ["http://clowe-drf:8000"],
+          "url_pattern": "/health_check",
+          "encoding_path": "safepath",
+          "output_encoding": "json"
+        }
+      ]
+    }
+  ],
+  "extra_config": {
+    "telemetry/logging": {
+      "level": "DEBUG",
+      "prefix": "[KRAKEND]",
+      "stdout": true
+    }
+  }
+}
