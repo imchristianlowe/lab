@@ -17,15 +17,25 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls.conf import include
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 
 from apple_users import views
 
+
+@api_view()
+@permission_classes([AllowAny])
+def hello_world(request):
+    return Response({"message": "Hello, world!"})
+
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("health_check/", hello_world),
     path("api-auth/", include("rest_framework.urls")),
     path("api/", include("django_prometheus.urls")),
     path("api/", include("drf_github.urls")),
-    path("api/", include("djoser.urls")),
     path("api/", include("djoser.urls")),
     path("api/", include("djoser.urls.authtoken")),
     path("validate_apple_id_token/", views.validate_id_token),
