@@ -10,16 +10,13 @@
     {
       "@comment": "Django REST Framework",
       "endpoint": "/drf/api/{path}/",
+      "output_encoding": "no-op",
       "backend": [
         {
           "host": ["http://clowe-drf:8000"],
           "url_pattern": "/api/{path}/",
           "encoding_path": "safepath",
-          "output_encoding": "json",
-          "is_collection": true,
-          "mapping": {
-            "collection": "users"
-          }
+          "encoding": "no-op"
         }
       ]
     },
