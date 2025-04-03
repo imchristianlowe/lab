@@ -1,0 +1,17 @@
+services:
+  krakend_ce:
+    # The :watch image restarts the service automatically when the configuration files change.
+    # Do not use this image in production, it's meant to speed up your testing and development.
+    image: devopsfaith/krakend:watch
+    volumes:
+      - ../../../krakend:/etc/krakend
+    ports:
+      - "8000:8001"
+    command: ["run", "-d", "-c", "/etc/krakend/krakend.json"]
+    networks:
+      - clowe-net
+
+networks:
+  clowe-net:
+    name: clowe-net
+    external: true
