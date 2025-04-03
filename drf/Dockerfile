@@ -16,4 +16,6 @@ RUN poetry install --no-interaction --no-ansi --without dev
 
 WORKDIR /usr/src/app
 
+EXPOSE 8000
+
 COPY . .
