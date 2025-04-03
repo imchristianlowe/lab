@@ -15,7 +15,11 @@
           "host": ["http://clowe-drf:8000"],
           "url_pattern": "/api/{path}/",
           "encoding_path": "safepath",
-          "output_encoding": "json"
+          "output_encoding": "json",
+          "is_collection": true,
+          "mapping": {
+            "collection": "users"
+          }
         }
       ]
     },

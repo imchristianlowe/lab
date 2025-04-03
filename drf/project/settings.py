@@ -233,4 +233,9 @@ GITHUB_APP = {
     "REPO": os.environ.get("GITHUB_REPO"),
 }
 
-DJOSER = {"PERMISSIONS": {"user_create": ["rest_framework.permissions.AllowAny"]}}
+DJOSER = {
+    "PERMISSIONS": {
+        "user_list": ["rest_framework.permissions.AllowAny"],
+        "user_create": ["rest_framework.permissions.AllowAny"],
+    }
+}
