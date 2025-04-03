@@ -23,6 +23,8 @@
     {
       "@comment": "Django REST Framework Token",
       "endpoint": "/drf/api/token/{path}/",
+      "input_headers": ["Content-Length", "Content-Type"],
+
       "method": "POST",
       "output_encoding": "no-op",
       "backend": [
