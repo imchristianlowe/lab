@@ -22,7 +22,10 @@ class RequestLogMiddleware:
         extra["response_code"] = response.status_code
         extra["user"] = request.user.pk
 
-        logger.info("API Request", extra=extra)
+        logger.info(
+            f"API Request {response.status_code}, {request.get_full_path()} {response.data}",
+            extra=extra,
+        )
         return response
 
     def process_request(self, request):
