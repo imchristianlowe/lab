@@ -8,15 +8,31 @@
   "cache_ttl": "300s",
   "endpoints": [
     {
-      "@comment": "Django REST Framework",
-      "endpoint": "/drf/api/{path}/",
+      "@comment": "Django REST Framework Users",
+      "endpoint": "/drf/api/users/",
       "output_encoding": "no-op",
       "backend": [
         {
           "host": ["http://clowe-drf:8000"],
-          "url_pattern": "/api/{path}/",
+          "url_pattern": "/api/users/",
           "encoding_path": "safepath",
           "encoding": "no-op"
+        }
+      ]
+    },
+    {
+      "@comment": "Django REST Framework Token",
+      "endpoint": "/drf/api/token/{path}/",
+      "method": "POST",
+      "output_encoding": "no-op",
+      "backend": [
+        {
+          "host": ["http://clowe-drf:8000"],
+          "url_pattern": "/api/token/{path}/",
+          "return_error_message": true,
+          "return_error_code": true,
+          "encoding": "json",
+          "method": "POST"
         }
       ]
     },
