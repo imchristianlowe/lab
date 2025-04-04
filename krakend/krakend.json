@@ -45,11 +45,19 @@
           "host": ["http://clowe-drf:8000"],
           "url_pattern": "/health_check",
           "encoding_path": "safepath",
-          "output_encoding": "json"
+          "extra_config": {
+            "plugin/req-resp-modifier": {
+              "name": ["lura-request-modifier-example"]
+            }
+          }
         }
       ]
     }
   ],
+  "plugin": {
+    "pattern": ".so",
+    "folder": "/etc/krakend/plugins/"
+  },
   "extra_config": {
     "telemetry/logging": {
       "level": "DEBUG",
