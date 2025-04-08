@@ -2,20 +2,23 @@
 
 ## Local
 
-I use kind to run kubernetes locally. I also need the `kind-cloud-provider`
+I use kind to run kubernetes locally. And because I'm on Mac I need [this](https://github.com/chipmk/docker-mac-net-connect?tab=readme-ov-file#installation) nifty tool... that will be explained later.
 
 ```aiignore
-brew install kind-cloud-provider
-sudo kind-cloud-provider
+# Install via Homebrew
+$ brew install chipmk/tap/docker-mac-net-connect
+
+# Run the service and register it to launch at boot
+$ sudo brew services start chipmk/tap/docker-mac-net-connect
 ```
 
-This performs some sort of magic that allows me to define things like this in the `k8s/dashboard-values.yml`
+Install the k8s dashboard with helm
 
 ```aiignore
-kong:
-  proxy:
-    type: LoadBalancer
+helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --namespace kubernetes-dashboard
 ```
+
+This performs some sort of magic that allows me to define things like this in the `k8s/dashboard-lb-service.yml`
 
 and when I apply the helm chart with
 
@@ -41,3 +44,8 @@ kubernetes-dashboard-web               ClusterIP      10.96.216.86    <none>    
 ```
 
 I know I can access my kubernetes dashboard in my browser by visiting http://172.29.0.9
+
+### Links
+
+- [kind cilium load balancer](https://fence-io.github.io/website/articles/networking/setting-up-load-balancer-service-with-cilium-in-kind-cluster/#containers-networking-on-macos)
+-

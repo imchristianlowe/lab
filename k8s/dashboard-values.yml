@@ -1,3 +1,0 @@
-kong:
-  proxy:
-    type: LoadBalancer
