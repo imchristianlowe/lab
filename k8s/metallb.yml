@@ -1,0 +1,9 @@
+apiVersion: "cilium.io/v2alpha1"
+kind: CiliumLoadBalancerIPPool
+metadata:
+  name: "metallb-pool"
+spec:
+  allowFirstLastIPs: "No"
+  blocks:
+    - start: "172.29.0.100"
+      stop: "172.29.0.200"

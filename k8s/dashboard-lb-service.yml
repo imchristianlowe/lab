@@ -1,13 +1,19 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: kubernetes-dashboard-lb
+  name: kubernetes-dashboard-dns
+  namespace: kubernetes-dashboard
+  annotations:
+    # Tell external-dns to create a DNS record
+    external-dns.alpha.kubernetes.io/hostname: k8s-dash.christianlowe.com
+    # Optional: Specify the target of the DNS record explicitly
+    # external-dns.alpha.kubernetes.io/target: [LOAD_BALANCER_IP_OR_HOSTNAME]
 spec:
-  type: LoadBalancer
+  # We'll use the existing kubernetes-dashboard service as a selector
+  selector:
+    app.kubernetes.io/name: kubernetes-dashboard-web
   ports:
-    - port: 8443
+    - port: 80
       targetPort: 8000
       protocol: TCP
-      name: https
-  selector:
-    app.kubernetes.io/component: web
+  type: LoadBalancer
