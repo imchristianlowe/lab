@@ -45,6 +45,8 @@ kubernetes-dashboard-web               ClusterIP      10.96.216.86    <none>    
 
 I know I can access my kubernetes dashboard in my browser by visiting http://172.29.0.9
 
+Cilium installed with helm. https://docs.cilium.io/en/stable/installation/k8s-install-helm/
+
 ### Links
 
 - [kind cilium load balancer](https://fence-io.github.io/website/articles/networking/setting-up-load-balancer-service-with-cilium-in-kind-cluster/#containers-networking-on-macos)
