@@ -30,3 +30,5 @@ l2announcements:
   leaseDuration: 3s
   leaseRenewDeadline: 1s
   leaseRetryPeriod: 500ms
+bgpControlPlane:
+  enabled: true
