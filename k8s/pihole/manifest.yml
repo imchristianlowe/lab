@@ -72,28 +72,15 @@ spec:
         - name: pihole
           image: pihole/pihole:latest
           imagePullPolicy: IfNotPresent
-          securityContext:
-            capabilities:
-              add:
-                - NET_ADMIN
-                - NET_RAW
           env:
             - name: TZ
               value: "Australia/Melbourne"
             - name: FTLCONF_webserver_api_password
               value: shouldbechangedafterwards
-            - name: FTLCONF_LOCAL_IPV4
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.podIP
             - name: DNS1
               value: "1.1.1.1"
             - name: DNS2
               value: "8.8.8.8"
-            - name: ServerIP # Explicitly set the server IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.podIP
           ports:
             - containerPort: 80
               name: pihole-http
