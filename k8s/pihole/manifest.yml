@@ -1,25 +1,68 @@
 apiVersion: v1
-kind: Service
+kind: Namespace
 metadata:
   name: pihole
-  annotations:
-    external-dns.alpha.kubernetes.io/hostname: pihole.christianlowe.com
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pihole-etc-claim
+  namespace: pihole-dns
 spec:
-  type: LoadBalancer
-  ports:
-    - port: 80
-  selector:
-    app: pihole
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pihole-dnsmasq-claim
+  namespace: pihole-dns
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pihole-logs-claim
+  namespace: pihole-dns
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pihole-custom-dnsmasq
+  namespace: pihole-dns
+data:
+  02-custom.conf: |
+    # Allow DNS queries from any source
+    interface=*
+    bind-interfaces
+    log-queries
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pihole
+  labels:
+    app: pihole
+  namespace: pihole-dns
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: pihole
-  replicas: 1
   template:
     metadata:
       labels:
@@ -27,23 +70,129 @@ spec:
     spec:
       containers:
         - name: pihole
-          image: pihole/pihole
+          image: pihole/pihole:latest
           imagePullPolicy: IfNotPresent
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+                - NET_RAW
+          env:
+            - name: TZ
+              value: "Australia/Melbourne"
+            - name: WEBPASSWORD
+              value: shouldbechangedafterwards
+            - name: DNSMASQ_LISTENING
+              value: "all"
+            - name: QUERY_LOGGING
+              value: "true"
+            - name: FTLCONF_LOCAL_IPV4
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: DNS1
+              value: "1.1.1.1"
+            - name: DNS2
+              value: "8.8.8.8"
+          ports:
+            - containerPort: 80
+              name: pihole-http
+              protocol: TCP
+            - containerPort: 53
+              name: dns
+              protocol: TCP
+            - containerPort: 53
+              name: dns-udp
+              protocol: UDP
+            - containerPort: 443
+              name: pihole-ssl
+              protocol: TCP
+            - containerPort: 67
+              name: client-udp
+              protocol: UDP
+          volumeMounts:
+            - name: pihole-etc-volume
+              mountPath: "/etc/pihole"
+            - name: pihole-dnsmasq-volume
+              mountPath: "/etc/dnsmasq.d"
+            - name: pihole-logs-volume
+              mountPath: "/var/log"
+            - name: custom-dnsmasq
+              mountPath: "/etc/dnsmasq.d/02-custom.conf"
+              subPath: 02-custom.conf
+      #        livenessProbe:
+      #          httpGet:
+      #            path: /admin/index.php
+      #            port: 80
+      #          initialDelaySeconds: 60
+      #          periodSeconds: 10
+      #        readinessProbe:
+      #          httpGet:
+      #            path: /admin/index.php
+      #            port: 80
+      #          initialDelaySeconds: 30
+      #          periodSeconds: 10
+      volumes:
+        - name: pihole-etc-volume
+          persistentVolumeClaim:
+            claimName: pihole-etc-claim
+        - name: pihole-dnsmasq-volume
+          persistentVolumeClaim:
+            claimName: pihole-dnsmasq-claim
+        - name: pihole-logs-volume
+          persistentVolumeClaim:
+            claimName: pihole-logs-claim
+        - name: custom-dnsmasq
+          configMap:
+            name: pihole-custom-dnsmasq
+            items:
+              - key: 02-custom.conf
+                path: 02-custom.conf
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: pihole-dns
+  labels:
+    app: pihole
+  name: pihole-udp
+  namespace: pihole-dns
 spec:
-  type: LoadBalancer
   ports:
-    - name: dns-tcp
-      port: 53
-      targetPort: 53
-      protocol: TCP
     - name: dns-udp
       port: 53
-      targetPort: 53
       protocol: UDP
+      targetPort: 53
+    - name: client-udp
+      port: 67
+      protocol: UDP
+      targetPort: 67
   selector:
     app: pihole
+  externalTrafficPolicy: Local
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: pihole
+  name: pihole
+  namespace: pihole-dns
+spec:
+  ports:
+    - name: pihole-http
+      port: 80
+      protocol: TCP
+      targetPort: 80
+    - name: pihole-https
+      port: 443
+      protocol: TCP
+      targetPort: 443
+    - name: dns
+      port: 53
+      protocol: TCP
+      targetPort: 53
+  selector:
+    app: pihole
+  externalTrafficPolicy: Local
+  type: LoadBalancer
