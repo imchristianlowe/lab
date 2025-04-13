@@ -80,7 +80,7 @@ spec:
           env:
             - name: TZ
               value: "Australia/Melbourne"
-            - name: WEBPASSWORD
+            - name: FTLCONF_webserver_api_password
               value: shouldbechangedafterwards
             - name: DNSMASQ_LISTENING
               value: "all"
