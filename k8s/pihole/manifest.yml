@@ -81,19 +81,6 @@ spec:
               value: "1.1.1.1"
             - name: DNS2
               value: "8.8.8.8"
-          ports:
-            - containerPort: 80
-              name: pihole-http
-              protocol: TCP
-            - containerPort: 53
-              name: dns
-              protocol: TCP
-            - containerPort: 53
-              name: dns-udp
-              protocol: UDP
-            - containerPort: 443
-              name: pihole-ssl
-              protocol: TCP
           volumeMounts:
             - name: pihole-etc-volume
               mountPath: "/etc/pihole"
