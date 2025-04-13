@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: pihole
+  name: pihole-dns
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -72,11 +72,6 @@ spec:
         - name: pihole
           image: pihole/pihole:latest
           imagePullPolicy: IfNotPresent
-          securityContext:
-            capabilities:
-              add:
-                - NET_ADMIN
-                - NET_RAW
           env:
             - name: TZ
               value: "Australia/Melbourne"
@@ -107,9 +102,6 @@ spec:
             - containerPort: 443
               name: pihole-ssl
               protocol: TCP
-            - containerPort: 67
-              name: client-udp
-              protocol: UDP
           volumeMounts:
             - name: pihole-etc-volume
               mountPath: "/etc/pihole"
@@ -120,18 +112,6 @@ spec:
             - name: custom-dnsmasq
               mountPath: "/etc/dnsmasq.d/02-custom.conf"
               subPath: 02-custom.conf
-      #        livenessProbe:
-      #          httpGet:
-      #            path: /admin/index.php
-      #            port: 80
-      #          initialDelaySeconds: 60
-      #          periodSeconds: 10
-      #        readinessProbe:
-      #          httpGet:
-      #            path: /admin/index.php
-      #            port: 80
-      #          initialDelaySeconds: 30
-      #          periodSeconds: 10
       volumes:
         - name: pihole-etc-volume
           persistentVolumeClaim:
@@ -154,7 +134,7 @@ kind: Service
 metadata:
   labels:
     app: pihole
-  name: pihole-udp
+  name: pihole-dns
   namespace: pihole-dns
 spec:
   ports:
@@ -162,10 +142,10 @@ spec:
       port: 53
       protocol: UDP
       targetPort: 53
-    - name: client-udp
-      port: 67
-      protocol: UDP
-      targetPort: 67
+    - name: dns-tcp
+      port: 53
+      protocol: TCP
+      targetPort: 53
   selector:
     app: pihole
   externalTrafficPolicy: Local
@@ -176,7 +156,7 @@ kind: Service
 metadata:
   labels:
     app: pihole
-  name: pihole
+  name: pihole-web
   namespace: pihole-dns
 spec:
   ports:
@@ -184,14 +164,10 @@ spec:
       port: 80
       protocol: TCP
       targetPort: 80
-    - name: pihole-https
-      port: 443
-      protocol: TCP
-      targetPort: 443
-    - name: dns
-      port: 53
-      protocol: TCP
-      targetPort: 53
+  #    - name: pihole-https
+  #      port: 443
+  #      protocol: TCP
+  #      targetPort: 443
   selector:
     app: pihole
   externalTrafficPolicy: Local
