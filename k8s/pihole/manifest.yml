@@ -164,10 +164,10 @@ spec:
       port: 80
       protocol: TCP
       targetPort: 80
-  #    - name: pihole-https
-  #      port: 443
-  #      protocol: TCP
-  #      targetPort: 443
+    - name: pihole-https
+      port: 443
+      protocol: TCP
+      targetPort: 443
   selector:
     app: pihole
   externalTrafficPolicy: Local
