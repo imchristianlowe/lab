@@ -111,8 +111,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app: pihole
   name: pihole-dns
   namespace: pihole-dns
 spec:
@@ -133,8 +131,6 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app: pihole
   name: pihole-web
   namespace: pihole-dns
 spec:
