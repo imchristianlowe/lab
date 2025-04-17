@@ -35,3 +35,19 @@ The frontend is built with [Expo](https://expo.dev).
 After following the above steps to install poetry and activating the virtual environment, run `mkdocs serve`.
 
 The docs will be served at http://localhost:8000
+
+### Commands
+
+Monitor packets on port with tcpdump (CLI)
+
+```aiignore
+tcpdump -n -v -i any port 53
+```
+
+Install tcpdump on alpine
+
+```aiignore
+apk update
+apk fetch tcpdump
+apk add tcpdump*
+```
