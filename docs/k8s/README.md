@@ -51,3 +51,15 @@ Cilium installed with helm. https://docs.cilium.io/en/stable/installation/k8s-in
 
 - [kind cilium load balancer](https://fence-io.github.io/website/articles/networking/setting-up-load-balancer-service-with-cilium-in-kind-cluster/#containers-networking-on-macos)
 -
+
+See all spec variables
+
+```aiignore
+kubectl explain CiliumL2AnnouncementPolicy.spec --recursive
+```
+
+See all resource types
+
+```aiignore
+kubectl api-resources
+```

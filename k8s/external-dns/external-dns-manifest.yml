@@ -54,7 +54,7 @@ spec:
           image: gcr.io/k8s-staging-external-dns/external-dns:v20250402-v0.16.1-48-g1efdf416
           env:
             - name: PIHOLE_PASSWORD
-              value: admin
+              value: shouldbechangedafterwards
           args:
             - --source=service
             - --source=ingress
@@ -67,7 +67,7 @@ spec:
             - --policy=upsert-only
             - --provider=pihole
             # Change this to the actual address of your Pi-hole web server with the port
-            - --pihole-server=http://172.29.0.102:80
+            - --pihole-server=http://172.29.0.12:80
             # Add the password argument that references the environment variable
             - --pihole-password=$(PIHOLE_PASSWORD)
             # Switch to pihole V6 API
