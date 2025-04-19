@@ -1,16 +1,20 @@
-# Welcome to My Mobile App Site
+# Welcome to My Lab
 
 For more information about me and other projects visit [christianlowe.com](https://www.christianlowe.com).
 
 ## Project layout
 
     .github/       # Github configuration, workflows, etc
-    docs/          # Docs folder
-    backend/       # Backend Services Folder
-    frontend/      # Frontend Folder
+    ansible/       # Ansible Playbooks
+    bruno/         # Bruno API Requests
+    docker/        # Docker compose files
+    docs/          # Docs
+    drf/           # Django REST Framework Playground
+    expo/          # Expo Playground
+    infra/         # Terraform and other IaC
+    k8s/           # k8s Playground - Service Manifests and Cluster Config
+    krakend/       # KrakenD Config
     mkdocs.yml     # Documentation configuration
-    poetry.lock    # Dependency Lock File
-    pyproject.toml # Dependency file and configurations
 
 ## Getting Started
 
