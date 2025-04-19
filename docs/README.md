@@ -13,7 +13,7 @@ For more information about me and other projects visit [christianlowe.com](https
     expo/          # Expo Playground
     infra/         # Terraform and other IaC
     k8s/           # k8s Playground - Service Manifests and Cluster Config
-    krakend/       # KrakenD Config
+    krakend/       # KrakenD Config & Plugins
     scripts/       # Misc Scripts
     mkdocs.yml     # Documentation configuration
 
