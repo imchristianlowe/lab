@@ -13,3 +13,17 @@ docker run --rm \
 ```aiignore
 docker run --rm -v "$(pwd)":/unzipped busybox tar -xzvf /unzipped/my-backup.tar.gz -C /unzipped
 ```
+
+Monitor packets on port with tcpdump (CLI)
+
+```aiignore
+tcpdump -n -v -i any port 53
+```
+
+Install tcpdump on alpine
+
+```aiignore
+apk update
+apk fetch tcpdump
+apk add tcpdump*
+```

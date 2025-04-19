@@ -1,9 +1,9 @@
-site_name: Christian Lowe App
+site_name: CLowe Lab
 
 nav:
   - Home: README.md
   - Development:
-      - Backend: backend-development/README.md
-      - Frontend: frontend-development/README.md
+      - DRF: drf/README.md
+      - Expo: expo/README.md
 
 theme: readthedocs
