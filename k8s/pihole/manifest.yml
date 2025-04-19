@@ -122,6 +122,9 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/hostname: pihole.christianlowe.com
 spec:
+  externalTrafficPolicy: Local
+  type: LoadBalancer
+  loadBalancerIP: 172.29.0.101
   ports:
     - name: pihole-http
       port: 80
@@ -133,5 +136,3 @@ spec:
       targetPort: 443
   selector:
     app: pihole
-  externalTrafficPolicy: Local
-  type: LoadBalancer
