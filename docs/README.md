@@ -14,6 +14,7 @@ For more information about me and other projects visit [christianlowe.com](https
     infra/         # Terraform and other IaC
     k8s/           # k8s Playground - Service Manifests and Cluster Config
     krakend/       # KrakenD Config
+    scripts/       # Misc Scripts
     mkdocs.yml     # Documentation configuration
 
 ## Getting Started
