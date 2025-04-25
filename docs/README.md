@@ -17,12 +17,18 @@ For more information about me and other projects visit [christianlowe.com](https
     scripts/       # Misc Scripts
     mkdocs.yml     # Documentation configuration
 
-### Documentation
+## Documentation
+
+Build the docker image in `docker/mkdocs`
+
+```
+docker build . -t mkdocs
+```
 
 Run the following command to start a server with live reload
 
 ```aiignore
-docker run --rm -v "`pwd`:/app" -w /app/doc -p 8000:8000 minidocks/mkdocs serve -a 0.0.0.0:8000 -t material
+docker run --rm -v "`pwd`:/app" -w /app -p 8000:8000 mkdocs mkdocs serve -a 0.0.0.0:8000
 ```
 
 The docs will be served at http://localhost:8000
