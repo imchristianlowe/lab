@@ -2,8 +2,22 @@ site_name: CLowe Lab
 
 nav:
   - Home: README.md
+  - Network: network/README.md
   - Development:
       - DRF: drf/README.md
       - Expo: expo/README.md
 
 theme: readthedocs
+
+plugins:
+  - search
+  - mermaid2:
+      javascript: js/mermaid.min.js
+      arguments:
+        securityLevel: "loose"
+        startOnLoad: true
+#      version: 11.4.0
+
+extra_javascript:
+  - path: js/loader.js
+    type: module
