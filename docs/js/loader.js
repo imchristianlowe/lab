@@ -1,6 +1,5 @@
 import "./mermaid.min.js";
 
-console.log("Initialize third-party libraries here");
 mermaid.registerIconPacks([
   {
     name: "logos",

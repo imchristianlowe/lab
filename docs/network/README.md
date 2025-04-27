@@ -9,10 +9,13 @@ architecture-beta
     group services(cloud)[Services] in homelab
     group vpn(cloud)[VPN] in homelab
 
-    service user(server)[User] in internet
-    service smartTv(logos:100tb)[SmartTV] in media
+    service user(mdi:user)[User] in internet
+    service smartTv(mdi:tv)[SmartTV] in media
     service udmpro(internet)[UDM Pro] in homelab
     service truenas(disk)[TrueNAS] in services
     service thing(mdi:ab-testing)[blah] in services
+
+    user:R --> L:udmpro
+    smartTv{group}:R --> L:truenas
 
 ```
