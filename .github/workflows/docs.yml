@@ -24,4 +24,6 @@ jobs:
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-      - run: poetry run -C drf mkdocs gh-deploy --force
+      - run: |
+          cp mkdocs.yml drf/mkdocs.yml
+          poetry run -C drf mkdocs gh-deploy --force
