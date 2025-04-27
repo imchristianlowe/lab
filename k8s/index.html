@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://imchristianlowe.github.io/lab/k8s/" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Kubernetes - CLowe Lab</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Kubernetes";
+        var mkdocs_page_input_path = "k8s/README.md";
+        var mkdocs_page_url = "/lab/k8s/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> CLowe Lab
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../network/">Network</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Development</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../drf/">DRF</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../expo/">Expo</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">CLowe Lab</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Kubernetes</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="kubernetes">Kubernetes</h1>
+<h2 id="local">Local</h2>
+<p>I use kind to run kubernetes locally. And because I'm on Mac I need <a href="https://github.com/chipmk/docker-mac-net-connect?tab=readme-ov-file#installation">this</a> nifty tool... that will be explained later.</p>
+<pre><code class="language-aiignore"># Install via Homebrew
+$ brew install chipmk/tap/docker-mac-net-connect
+
+# Run the service and register it to launch at boot
+$ sudo brew services start chipmk/tap/docker-mac-net-connect
+</code></pre>
+<p>Install the k8s dashboard with helm</p>
+<pre><code class="language-aiignore">helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --namespace kubernetes-dashboard
+</code></pre>
+<p>This performs some sort of magic that allows me to define things like this in the <code>k8s/dashboard-lb-service.yml</code></p>
+<p>and when I apply the helm chart with</p>
+<pre><code class="language-aiignore">helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --namespace kubernetes-dashboard -f dashboard-values.yml
+</code></pre>
+<p>when I run</p>
+<pre><code class="language-aiignore">kubectl get services -n kubernetes-dashboard
+</code></pre>
+<p>and see</p>
+<pre><code class="language-aiignore">NAME                                   TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)         AGE
+kubernetes-dashboard-api               ClusterIP      10.96.230.175   &lt;none&gt;        8000/TCP        6h
+kubernetes-dashboard-auth              ClusterIP      10.96.68.80     &lt;none&gt;        8000/TCP        6h
+kubernetes-dashboard-kong-proxy        LoadBalancer   10.96.147.213   172.29.0.9    443:32040/TCP   6h
+kubernetes-dashboard-metrics-scraper   ClusterIP      10.96.56.194    &lt;none&gt;        8000/TCP        6h
+kubernetes-dashboard-web               ClusterIP      10.96.216.86    &lt;none&gt;        8000/TCP        6h
+</code></pre>
+<p>I know I can access my kubernetes dashboard in my browser by visiting http://172.29.0.9</p>
+<p>Cilium installed with helm. https://docs.cilium.io/en/stable/installation/k8s-install-helm/</p>
+<h3 id="links">Links</h3>
+<h2 id="-kind-cilium-load-balancer">- <a href="https://fence-io.github.io/website/articles/networking/setting-up-load-balancer-service-with-cilium-in-kind-cluster/#containers-networking-on-macos">kind cilium load balancer</a></h2>
+<p>See all spec variables</p>
+<pre><code class="language-aiignore">kubectl explain CiliumL2AnnouncementPolicy.spec --recursive
+</code></pre>
+<p>See all resource types</p>
+<pre><code class="language-aiignore">kubectl api-resources
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../js/loader.js" type="module"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
