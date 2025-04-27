@@ -1,5 +1,5 @@
 site_name: CLowe Lab
-
+site_url: https://imchristianlowe.github.io/lab
 nav:
   - Home: README.md
   - Network: network/README.md
