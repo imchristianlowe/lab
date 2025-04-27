@@ -16,9 +16,8 @@ jobs:
       #        uses: abatilo/actions-poetry@v3
       #        with:
       #          poetry-version: 2.0.1
-      #      - name: Install Dependencies
-      #        run: |
-      #          poetry add mkdocs
+      - name: Install Dependencies
+        run: pip3 install mkdocs
       - name: Configure Git Credentials
         run: |
           git config user.name github-actions[bot]
