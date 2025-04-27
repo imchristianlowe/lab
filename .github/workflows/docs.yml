@@ -20,10 +20,8 @@ jobs:
         run: |
           cd drf
           poetry install
-      - name: Build Docs
-        run: poetry run -C drf mkdocs build
       - name: Configure Git Credentials
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-      - run: poetry run mkdocs gh-deploy --force
+      - run: poetry run -C drf mkdocs gh-deploy --force
