@@ -17,7 +17,7 @@ jobs:
       #        with:
       #          poetry-version: 2.0.1
       - name: Install Dependencies
-        run: pip3 install mkdocs
+        run: pip3 install mkdocs mkdocs-mermaid2-plugin
       - name: Configure Git Credentials
         run: |
           git config user.name github-actions[bot]
