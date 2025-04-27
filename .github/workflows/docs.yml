@@ -21,7 +21,7 @@ jobs:
           cd drf
           poetry install
       - name: Build Docs
-        run: poetry run mkdocs build
+        run: poetry run -C drf mkdocs build
       - name: Configure Git Credentials
         run: |
           git config user.name github-actions[bot]
